@@ -26,7 +26,11 @@ function NavBar() {
   }, []);
 
   return (
-    <nav className="navbar">
+    <motion.nav
+      className="navbar"
+      animate={{ height: solid ? 96 : 144 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+    >
       <div className="navbar__scrim" />
       <motion.div
         className="navbar__solid"
@@ -40,7 +44,7 @@ function NavBar() {
         src="/m.png"
         alt="Mayura Kannada Sangha logo"
         className="navbar__logo"
-        animate={{ height: solid ? 40 : 72 }}
+        animate={{ height: solid ? 40 : 120 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       />
       <ul className="navbar__links">
@@ -58,7 +62,7 @@ function NavBar() {
           </li>
         ))}
       </ul>
-    </nav>
+    </motion.nav>
   );
 }
 

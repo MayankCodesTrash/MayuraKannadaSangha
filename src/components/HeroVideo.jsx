@@ -47,6 +47,7 @@ function HeroVideo() {
         >
           <source src="/videos/0709.mp4" type="video/mp4" />
         </video>
+        <div className="hero__tint" />
         <div className="hero__scrim" />
         <div className="hero__text">
           <p className="hero__line hero__line--english">Welcome to</p>
