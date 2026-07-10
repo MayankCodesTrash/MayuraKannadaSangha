@@ -58,7 +58,9 @@ function HeroVideo() {
         <div className="hero__text">
           <p className="hero__line hero__line--english">Welcome to</p>
           <p className="hero__line hero__line--english hero__line--title">
-            Mayura Kannada Sangha
+            <span className="mks-highlight">M</span>ayura{' '}
+            <span className="mks-highlight">K</span>annada{' '}
+            <span className="mks-highlight">S</span>angha
           </p>
           <p className="hero__line hero__line--english">Central Iowa</p>
           <p className="hero__line hero__line--kannada hero__line--title">

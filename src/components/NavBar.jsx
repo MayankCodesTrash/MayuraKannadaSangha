@@ -20,7 +20,7 @@ function NavBar() {
   return (
     <motion.nav
       className="navbar"
-      animate={{ height: solid ? 144 : 276 }}
+      animate={{ height: solid ? 120 : 256 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       <div className="navbar__scrim" />

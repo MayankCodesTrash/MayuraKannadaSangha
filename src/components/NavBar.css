@@ -47,6 +47,7 @@
   text-decoration: none;
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: 1.2rem;
   color: var(--color-text-light);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   padding-bottom: 4px;

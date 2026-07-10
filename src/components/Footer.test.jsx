@@ -28,7 +28,13 @@ describe('Footer', () => {
 
   it('renders the association name, location, email, and non-profit line', () => {
     renderFooter();
-    expect(screen.getByText('Mayura Kannada Sangha')).toBeInTheDocument();
+    // "Mayura Kannada Sangha" is split across <span> elements to highlight
+    // the M/K/S initials, so match on the paragraph's full text content.
+    expect(
+      screen.getByText(
+        (_, element) => element.tagName === 'P' && element.textContent === 'Mayura Kannada Sangha'
+      )
+    ).toBeInTheDocument();
     expect(screen.getByText('Central Iowa')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'mksdsm2024@gmail.com' })).toHaveAttribute(
       'href',

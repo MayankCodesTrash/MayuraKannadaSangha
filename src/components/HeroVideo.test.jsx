@@ -16,7 +16,11 @@ describe('HeroVideo', () => {
       'ಮಯೂರ ಕನ್ನಡ ಸಂಘ',
       'ಸೆಂಟ್ರಲ್ ಅಯೋವಾ',
     ].forEach((line) => {
-      expect(screen.getByText(line)).toBeInTheDocument();
+      // "Mayura Kannada Sangha" is split across <span> elements to highlight
+      // the M/K/S initials, so match on the paragraph's full text content.
+      expect(
+        screen.getByText((_, element) => element.tagName === 'P' && element.textContent === line)
+      ).toBeInTheDocument();
     });
   });
 });

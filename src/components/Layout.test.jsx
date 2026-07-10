@@ -14,6 +14,13 @@ describe('Layout', () => {
     );
     expect(screen.getByAltText('Mayura Kannada Sangha logo')).toBeInTheDocument();
     expect(screen.getByText('page content')).toBeInTheDocument();
-    expect(screen.getAllByText(/Mayura Kannada Sangha/)).toHaveLength(2);
+    // "Mayura Kannada Sangha" is split across <span> elements in the footer
+    // name to highlight the M/K/S initials, so match on full text content.
+    expect(
+      screen.getByText(
+        (_, element) => element.tagName === 'P' && element.textContent === 'Mayura Kannada Sangha'
+      )
+    ).toBeInTheDocument();
+    expect(screen.getByText(/© \d{4} Mayura Kannada Sangha, Central Iowa/)).toBeInTheDocument();
   });
 });

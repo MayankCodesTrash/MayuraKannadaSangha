@@ -10,8 +10,14 @@ describe('App routing', () => {
         <App />
       </MemoryRouter>
     );
-    // "Mayura Kannada Sangha" appears in both the hero title and the footer name
-    expect(screen.getAllByText('Mayura Kannada Sangha')).toHaveLength(2);
+    // "Mayura Kannada Sangha" appears in both the hero title and the footer
+    // name, each split across <span> elements to highlight the M/K/S
+    // initials, so match on full text content rather than a plain string.
+    expect(
+      screen.getAllByText(
+        (_, element) => element.tagName === 'P' && element.textContent === 'Mayura Kannada Sangha'
+      )
+    ).toHaveLength(2);
   });
 
   it.each([

@@ -20,7 +20,11 @@ function Footer() {
           ))}
         </ul>
 
-        <p className="footer__name">Mayura Kannada Sangha</p>
+        <p className="footer__name">
+          <span className="mks-highlight">M</span>ayura{' '}
+          <span className="mks-highlight">K</span>annada{' '}
+          <span className="mks-highlight">S</span>angha
+        </p>
         <p className="footer__location">Central Iowa</p>
         <a className="footer__email" href="mailto:mksdsm2024@gmail.com">
           mksdsm2024@gmail.com
