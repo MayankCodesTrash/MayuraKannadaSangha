@@ -26,14 +26,16 @@ function NavBar() {
   }, []);
 
   return (
-    <motion.nav
-      className="navbar"
-      animate={{
-        backgroundColor: solid ? 'rgba(232, 98, 44, 1)' : 'rgba(232, 98, 44, 0)',
-        boxShadow: solid ? '0 2px 12px rgba(0,0,0,0.15)' : '0 0 0 rgba(0,0,0,0)',
-      }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-    >
+    <nav className="navbar">
+      <div className="navbar__scrim" />
+      <motion.div
+        className="navbar__solid"
+        animate={{
+          opacity: solid ? 1 : 0,
+          boxShadow: solid ? '0 2px 12px rgba(0,0,0,0.15)' : '0 0 0 rgba(0,0,0,0)',
+        }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+      />
       <motion.img
         src="/m.png"
         alt="Mayura Kannada Sangha logo"
@@ -56,7 +58,7 @@ function NavBar() {
           </li>
         ))}
       </ul>
-    </motion.nav>
+    </nav>
   );
 }
 
