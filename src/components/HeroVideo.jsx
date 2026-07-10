@@ -38,7 +38,7 @@ function HeroVideo() {
 
   return (
     <div className="hero" ref={containerRef}>
-      <div className="hero__sticky">
+      <div className="hero__video-wrap">
         <video
           ref={videoRef}
           className="hero__video"
@@ -48,11 +48,13 @@ function HeroVideo() {
         >
           <source src="/videos/0709.mp4" type="video/mp4" />
         </video>
-        <div className="hero__tint" />
-        <div className="hero__scrim" />
         <div className="hero__wave">
           <WaveDivider fill="var(--color-yellow)" />
         </div>
+      </div>
+      <div className="hero__pin">
+        <div className="hero__tint" />
+        <div className="hero__scrim" />
         <div className="hero__text">
           <p className="hero__line hero__line--english">Welcome to</p>
           <p className="hero__line hero__line--english hero__line--title">

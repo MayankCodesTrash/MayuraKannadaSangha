@@ -20,7 +20,7 @@ function NavBar() {
   return (
     <motion.nav
       className="navbar"
-      animate={{ height: solid ? 120 : 216 }}
+      animate={{ height: solid ? 144 : 276 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       <div className="navbar__scrim" />
@@ -36,7 +36,7 @@ function NavBar() {
         src="/m.png"
         alt="Mayura Kannada Sangha logo"
         className="navbar__logo"
-        animate={{ height: solid ? 72 : 180 }}
+        animate={{ height: solid ? 96 : 240 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       />
       <ul className="navbar__links">
