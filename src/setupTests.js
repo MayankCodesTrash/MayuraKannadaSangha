@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/vitest';
+import { vi } from 'vitest';
 
 class MockIntersectionObserver {
   observe() {}
@@ -7,3 +8,38 @@ class MockIntersectionObserver {
 }
 
 globalThis.IntersectionObserver = MockIntersectionObserver;
+
+vi.mock('firebase/app', () => ({
+  initializeApp: vi.fn(() => ({})),
+}));
+
+vi.mock('firebase/auth', () => ({
+  getAuth: vi.fn(() => ({})),
+  onAuthStateChanged: vi.fn((auth, callback) => {
+    callback(null);
+    return () => {};
+  }),
+  signInWithEmailAndPassword: vi.fn(() => Promise.reject(new Error('not mocked'))),
+  signOut: vi.fn(() => Promise.resolve()),
+}));
+
+vi.mock('firebase/firestore', () => ({
+  getFirestore: vi.fn(() => ({})),
+  collection: vi.fn(() => ({})),
+  doc: vi.fn(() => ({})),
+  addDoc: vi.fn(() => Promise.resolve({ id: 'mock-id' })),
+  updateDoc: vi.fn(() => Promise.resolve()),
+  deleteDoc: vi.fn(() => Promise.resolve()),
+  onSnapshot: vi.fn(() => () => {}),
+  serverTimestamp: vi.fn(() => 'mock-timestamp'),
+  arrayUnion: vi.fn((...items) => ({ __op: 'arrayUnion', items })),
+  arrayRemove: vi.fn((item) => ({ __op: 'arrayRemove', item })),
+}));
+
+vi.mock('firebase/storage', () => ({
+  getStorage: vi.fn(() => ({})),
+  ref: vi.fn(() => ({})),
+  uploadBytes: vi.fn(() => Promise.resolve()),
+  getDownloadURL: vi.fn(() => Promise.resolve('https://example.com/mock-image.jpg')),
+  deleteObject: vi.fn(() => Promise.resolve()),
+}));
