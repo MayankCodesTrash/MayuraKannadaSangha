@@ -5,17 +5,83 @@
 
 .footer__content {
   background: var(--color-orange);
-  padding: 32px 16px 48px;
+  padding: 16px 16px 40px;
+}
+
+.footer__links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.footer__link {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
 }
 
 .footer__name {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  margin: 0 0 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.footer__location {
+  font-size: 1rem;
+  margin: 4px 0 12px;
+  opacity: 0.9;
+}
+
+.footer__email {
+  display: inline-block;
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  text-decoration: underline;
+  margin-bottom: 8px;
+}
+
+.footer__nonprofit {
+  font-size: 0.8rem;
+  max-width: 320px;
+  margin: 0 auto 20px;
+  opacity: 0.85;
+}
+
+.footer__instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1.5px solid var(--color-text-light);
+  border-radius: 999px;
+  padding: 8px 18px;
+  margin-bottom: 20px;
+}
+
+.footer__instagram:hover {
+  background: rgba(255, 248, 231, 0.15);
+}
+
+.footer__instagram-icon {
+  width: 18px;
+  height: 18px;
 }
 
 .footer__copyright {
-  font-size: 0.85rem;
-  opacity: 0.85;
+  font-size: 0.8rem;
+  opacity: 0.8;
   margin: 0;
 }

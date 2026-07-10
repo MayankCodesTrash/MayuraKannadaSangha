@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { getScrubProgress } from '../utils/scroll.js';
+import WaveDivider from './WaveDivider.jsx';
 import './HeroVideo.css';
 
 function HeroVideo() {
@@ -49,6 +50,9 @@ function HeroVideo() {
         </video>
         <div className="hero__tint" />
         <div className="hero__scrim" />
+        <div className="hero__wave">
+          <WaveDivider fill="var(--color-yellow)" />
+        </div>
         <div className="hero__text">
           <p className="hero__line hero__line--english">Welcome to</p>
           <p className="hero__line hero__line--english hero__line--title">

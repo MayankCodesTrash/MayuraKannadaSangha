@@ -10,7 +10,8 @@ describe('App routing', () => {
         <App />
       </MemoryRouter>
     );
-    expect(screen.getByText('Mayura Kannada Sangha')).toBeInTheDocument();
+    // "Mayura Kannada Sangha" appears in both the hero title and the footer name
+    expect(screen.getAllByText('Mayura Kannada Sangha')).toHaveLength(2);
   });
 
   it.each([
