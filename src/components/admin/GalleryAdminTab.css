@@ -1,0 +1,59 @@
+.gallery-admin {
+  font-family: system-ui, sans-serif;
+}
+
+.gallery-admin__add-form,
+.gallery-admin__editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 420px;
+  padding: 16px;
+  margin: 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.gallery-admin__list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.gallery-admin__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.gallery-admin__title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.gallery-admin__count {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.gallery-admin__images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gallery-admin__image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.gallery-admin__image img {
+  width: 96px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 4px;
+}
