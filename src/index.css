@@ -1,3 +1,39 @@
+:root {
+  --color-yellow: #f5b800;
+  --color-yellow-dark: #d99f00;
+  --color-orange: #e8622c;
+  --color-orange-dark: #c94f1f;
+  --color-text-dark: #3a2200;
+  --color-text-light: #fff8e7;
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-kannada: 'Noto Sans Kannada', sans-serif;
+  --nav-height: 96px;
+  --nav-height-scrolled: 64px;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-display);
+  color: var(--color-text-dark);
+  background: var(--color-yellow);
+}
+
+a {
+  color: inherit;
+}
+
+section {
+  position: relative;
+  overflow: hidden;
 }
