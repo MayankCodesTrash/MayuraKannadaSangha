@@ -20,7 +20,7 @@ function AboutSection() {
         </p>
       </div>
       <div className="about__carousel">
-        <ImageCarousel images={GALLERY_IMAGES} interval={2500} />
+        <ImageCarousel images={GALLERY_IMAGES} interval={5000} />
       </div>
     </div>
   );
