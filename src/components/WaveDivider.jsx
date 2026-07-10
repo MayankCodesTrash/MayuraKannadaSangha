@@ -15,6 +15,7 @@ function WaveDivider({ flip = false }) {
         xmlns="http://www.w3.org/2000/svg"
       >
         <motion.path
+          d={WAVE_PATH_A}
           fill="var(--color-orange)"
           animate={{ d: [WAVE_PATH_A, WAVE_PATH_B, WAVE_PATH_A] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
