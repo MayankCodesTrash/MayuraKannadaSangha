@@ -1,10 +1,10 @@
 .footer {
-  background: var(--color-orange);
   color: var(--color-text-light);
   text-align: center;
 }
 
 .footer__content {
+  background: var(--color-orange);
   padding: 32px 16px 48px;
 }
 
