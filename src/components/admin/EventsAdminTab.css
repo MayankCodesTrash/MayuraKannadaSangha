@@ -1,0 +1,74 @@
+.events-admin {
+  font-family: system-ui, sans-serif;
+}
+
+.events-admin__add {
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.events-admin__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.events-admin__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.events-admin__title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.events-admin__status {
+  text-transform: capitalize;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+.events-admin__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 420px;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.events-admin__form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.events-admin__form input,
+.events-admin__form select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.events-admin__buttons {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.events-admin__button-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.events-admin__form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
