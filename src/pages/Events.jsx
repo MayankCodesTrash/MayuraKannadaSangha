@@ -1,14 +1,21 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
 import KolamPattern from '../components/KolamPattern.jsx';
 import EventCard from '../components/EventCard.jsx';
 import SponsorshipSection from '../components/SponsorshipSection.jsx';
 import PastEventCard from '../components/PastEventCard.jsx';
-import { UPCOMING_EVENTS } from '../data/upcomingEvents.js';
-import { PAST_EVENTS } from '../data/pastEvents.js';
+import { subscribeToEvents } from '../data/eventsRepo.js';
 import './Events.css';
 
 function Events() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => subscribeToEvents(setEvents), []);
+
+  const upcomingEvents = events.filter((event) => event.status === 'upcoming');
+  const pastEvents = events.filter((event) => event.status === 'past');
+
   return (
     <Layout>
       <section className="events-page__section events-page__section--upcoming">
@@ -24,7 +31,7 @@ function Events() {
             Up-Coming Events
           </motion.h1>
           <div className="events-page__upcoming-list">
-            {UPCOMING_EVENTS.map((event, index) => (
+            {upcomingEvents.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />
             ))}
           </div>
@@ -49,8 +56,12 @@ function Events() {
             Here are events that have previously been held.
           </p>
           <div className="events-page__past-list">
-            {PAST_EVENTS.map((event, index) => (
-              <PastEventCard key={event.id} event={event} index={index} />
+            {pastEvents.map((event, index) => (
+              <PastEventCard
+                key={event.id}
+                event={{ ...event, date: `${event.month} ${event.day}, ${event.year}` }}
+                index={index}
+              />
             ))}
           </div>
         </div>
