@@ -1,6 +1,5 @@
 import WaveDivider from './WaveDivider.jsx';
 import WaveDividerLayers from './WaveDividerLayers.jsx';
-import PeacockPattern from './PeacockPattern.jsx';
 import './SponsorshipSection.css';
 
 const SPONSORSHIP_PDF_URL =
@@ -11,7 +10,6 @@ function SponsorshipSection() {
     <section className="sponsorship">
       <WaveDividerLayers fill="var(--color-orange)" />
       <div className="sponsorship__content">
-        <PeacockPattern />
         <div className="sponsorship__inner">
           <h2 className="sponsorship__title">Sponsorship Opportunities</h2>
           <p className="sponsorship__text">

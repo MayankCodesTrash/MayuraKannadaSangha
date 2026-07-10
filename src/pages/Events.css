@@ -3,6 +3,10 @@
   padding: 80px 24px;
 }
 
+.events-page__section--upcoming {
+  padding-top: 140px;
+}
+
 .events-page__inner {
   position: relative;
   z-index: 1;

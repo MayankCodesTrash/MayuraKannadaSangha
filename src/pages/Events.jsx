@@ -10,7 +10,7 @@ import './Events.css';
 function Events() {
   return (
     <Layout>
-      <section className="events-page__section">
+      <section className="events-page__section events-page__section--upcoming">
         <KolamPattern />
         <div className="events-page__inner">
           <h1 className="events-page__heading">Up-Coming Events</h1>
