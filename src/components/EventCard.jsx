@@ -25,14 +25,21 @@ function EventCard({ event, index = 0 }) {
           <p className="event-card__time">{event.time}</p>
           <p className="event-card__label">Location</p>
           <p className="event-card__location">{event.location}</p>
-          <a
-            className="event-card__cta"
-            href={event.ctaHref}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {event.ctaLabel}
-          </a>
+          {event.buttons && event.buttons.length > 0 && (
+            <div className="event-card__buttons">
+              {event.buttons.map((button) => (
+                <a
+                  key={button.url}
+                  className="event-card__cta"
+                  href={button.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {button.label}
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
