@@ -8,7 +8,11 @@ const INSTAGRAM_URL = 'https://www.instagram.com/MayuraKannadaSangha/';
 function Footer() {
   return (
     <footer className="footer">
-      <WaveDivider fill="var(--color-orange)" />
+      <div className="footer__wave-stack">
+        <WaveDivider fill="var(--color-orange)" opacity={0.35} delay={0.6} />
+        <WaveDivider fill="var(--color-orange)" opacity={0.6} delay={0.3} />
+        <WaveDivider fill="var(--color-orange)" />
+      </div>
       <div className="footer__content">
         <ul className="footer__links">
           {NAV_LINKS.map(({ to, label }) => (

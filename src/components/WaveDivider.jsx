@@ -6,9 +6,12 @@ const WAVE_PATH_A =
 const WAVE_PATH_B =
   'M0,60 C240,0 480,120 720,60 C960,0 1200,120 1440,60 L1440,120 L0,120 Z';
 
-function WaveDivider({ flip = false, fill = 'var(--color-orange)' }) {
+function WaveDivider({ flip = false, fill = 'var(--color-orange)', opacity = 1, delay = 0 }) {
   return (
-    <div className={`wave-divider${flip ? ' wave-divider--flip' : ''}`}>
+    <div
+      className={`wave-divider${flip ? ' wave-divider--flip' : ''}`}
+      style={{ opacity }}
+    >
       <svg
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"
@@ -18,7 +21,7 @@ function WaveDivider({ flip = false, fill = 'var(--color-orange)' }) {
           initial={{ d: WAVE_PATH_A }}
           fill={fill}
           animate={{ d: [WAVE_PATH_A, WAVE_PATH_B, WAVE_PATH_A] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay }}
         />
       </svg>
     </div>

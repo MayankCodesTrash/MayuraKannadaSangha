@@ -21,4 +21,9 @@ describe('WaveDivider', () => {
     expect(dAttribute).toBeTruthy();
     expect(dAttribute).toMatch(/^M/);
   });
+
+  it('applies the given opacity to the wrapper for layering multiple waves', () => {
+    const { container } = render(<WaveDivider opacity={0.4} />);
+    expect(container.querySelector('.wave-divider').style.opacity).toBe('0.4');
+  });
 });

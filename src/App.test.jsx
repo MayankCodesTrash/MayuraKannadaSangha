@@ -21,7 +21,6 @@ describe('App routing', () => {
   });
 
   it.each([
-    ['/events', 'Events'],
     ['/gallery', 'Gallery'],
     ['/culture', 'Our Culture and Values'],
     ['/team', 'Team'],
@@ -33,5 +32,16 @@ describe('App routing', () => {
       </MemoryRouter>
     );
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
+  });
+
+  it('renders the Events page with upcoming and past events', () => {
+    render(
+      <MemoryRouter initialEntries={['/events']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Up-Coming Events' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Past Events' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sponsorship Opportunities' })).toBeInTheDocument();
   });
 });
