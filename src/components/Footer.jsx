@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 import WaveDividerLayers from './WaveDividerLayers.jsx';
 import { NAV_LINKS } from '../data/navLinks.js';
+import { useAuth } from '../auth/AuthContext.jsx';
 import './Footer.css';
 
 const INSTAGRAM_URL = 'https://www.instagram.com/MayuraKannadaSangha/';
 
 function Footer() {
+  const { currentUser, logout } = useAuth();
+
   return (
     <footer className="footer">
       <WaveDividerLayers fill="var(--color-orange)" />
@@ -51,6 +54,23 @@ function Footer() {
           </svg>
           Follow us on Instagram
         </a>
+
+        <div className="footer__admin">
+          {currentUser ? (
+            <>
+              <Link to="/admin" className="footer__admin-link">
+                Admin Dashboard
+              </Link>
+              <button type="button" className="footer__admin-link" onClick={logout}>
+                Log Out
+              </button>
+            </>
+          ) : (
+            <Link to="/admin/login" className="footer__admin-link">
+              Admin Sign In
+            </Link>
+          )}
+        </div>
 
         <p className="footer__copyright">
           © {new Date().getFullYear()} Mayura Kannada Sangha, Central Iowa

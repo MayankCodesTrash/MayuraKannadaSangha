@@ -1,12 +1,16 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { AuthProvider } from '../auth/AuthContext.jsx';
 import Footer from './Footer.jsx';
 
 function renderFooter() {
   return render(
     <MemoryRouter>
-      <Footer />
+      <AuthProvider>
+        <Footer />
+      </AuthProvider>
     </MemoryRouter>
   );
 }
@@ -28,8 +32,6 @@ describe('Footer', () => {
 
   it('renders the association name, location, email, and non-profit line', () => {
     renderFooter();
-    // "Mayura Kannada Sangha" is split across <span> elements to highlight
-    // the M/K/S initials, so match on the paragraph's full text content.
     expect(
       screen.getByText(
         (_, element) => element.tagName === 'P' && element.textContent === 'Mayura Kannada Sangha'
@@ -51,5 +53,25 @@ describe('Footer', () => {
     expect(link).toHaveAttribute('href', 'https://www.instagram.com/MayuraKannadaSangha/');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
+  it('shows an Admin Sign In link when logged out', () => {
+    vi.mocked(onAuthStateChanged).mockImplementation((auth, callback) => {
+      callback(null);
+      return () => {};
+    });
+    renderFooter();
+    expect(screen.getByRole('link', { name: 'Admin Sign In' })).toHaveAttribute('href', '/admin/login');
+    expect(screen.queryByRole('link', { name: 'Admin Dashboard' })).not.toBeInTheDocument();
+  });
+
+  it('shows an Admin Dashboard link and Log Out button when logged in', () => {
+    vi.mocked(onAuthStateChanged).mockImplementation((auth, callback) => {
+      callback({ email: 'admin@mayurakannadasangha.org' });
+      return () => {};
+    });
+    renderFooter();
+    expect(screen.getByRole('link', { name: 'Admin Dashboard' })).toHaveAttribute('href', '/admin');
+    expect(screen.getByRole('button', { name: 'Log Out' })).toBeInTheDocument();
   });
 });
