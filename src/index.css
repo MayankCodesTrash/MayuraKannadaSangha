@@ -7,8 +7,8 @@
   --color-text-light: #fff8e7;
   --font-display: 'Playfair Display', 'Georgia', serif;
   --font-kannada: 'Noto Sans Kannada', sans-serif;
-  --nav-height: 96px;
-  --nav-height-scrolled: 64px;
+  --nav-height: 216px;
+  --nav-height-scrolled: 120px;
 }
 
 * {
