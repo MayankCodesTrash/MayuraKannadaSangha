@@ -3,27 +3,6 @@
   text-align: center;
 }
 
-.footer__wave-stack {
-  position: relative;
-}
-
-.footer__wave-stack .wave-divider {
-  position: absolute;
-  inset: 0;
-}
-
-.footer__wave-stack .wave-divider:last-child {
-  position: relative;
-}
-
-.footer__wave-stack .wave-divider:nth-child(1) {
-  top: -16px;
-}
-
-.footer__wave-stack .wave-divider:nth-child(2) {
-  top: -8px;
-}
-
 .footer__content {
   background: var(--color-orange);
   padding: 16px 16px 40px;

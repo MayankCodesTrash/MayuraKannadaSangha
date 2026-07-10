@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
-import PaisleyPattern from './PaisleyPattern.jsx';
+import PeacockPattern from './PeacockPattern.jsx';
 
-describe('PaisleyPattern', () => {
+describe('PeacockPattern', () => {
   it('renders an svg with a pattern definition', () => {
-    const { container } = render(<PaisleyPattern />);
+    const { container } = render(<PeacockPattern />);
     expect(container.querySelector('svg')).toBeInTheDocument();
     expect(container.querySelector('pattern')).toBeInTheDocument();
   });

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import WaveDivider from './WaveDivider.jsx';
+import WaveDividerLayers from './WaveDividerLayers.jsx';
 import { NAV_LINKS } from '../data/navLinks.js';
 import './Footer.css';
 
@@ -8,11 +8,7 @@ const INSTAGRAM_URL = 'https://www.instagram.com/MayuraKannadaSangha/';
 function Footer() {
   return (
     <footer className="footer">
-      <div className="footer__wave-stack">
-        <WaveDivider fill="var(--color-orange)" opacity={0.35} delay={0.6} />
-        <WaveDivider fill="var(--color-orange)" opacity={0.6} delay={0.3} />
-        <WaveDivider fill="var(--color-orange)" />
-      </div>
+      <WaveDividerLayers fill="var(--color-orange)" />
       <div className="footer__content">
         <ul className="footer__links">
           {NAV_LINKS.map(({ to, label }) => (

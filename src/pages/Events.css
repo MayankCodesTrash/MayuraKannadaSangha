@@ -25,31 +25,15 @@
   margin: 0 0 40px;
 }
 
-.events-page__upcoming-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.events-page__upcoming-list {
+  display: flex;
+  flex-direction: column;
   gap: 32px;
   margin-top: 40px;
 }
 
-.events-page__past-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
-@media (max-width: 860px) {
-  .events-page__upcoming-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .events-page__past-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .events-page__past-grid {
-    grid-template-columns: 1fr;
-  }
+.events-page__past-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

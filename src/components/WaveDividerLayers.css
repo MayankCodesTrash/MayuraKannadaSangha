@@ -1,0 +1,20 @@
+.wave-layers {
+  position: relative;
+}
+
+.wave-layers .wave-divider {
+  position: absolute;
+  inset: 0;
+}
+
+.wave-layers .wave-divider:last-child {
+  position: relative;
+}
+
+.wave-layers .wave-divider:nth-child(1) {
+  top: -16px;
+}
+
+.wave-layers .wave-divider:nth-child(2) {
+  top: -8px;
+}

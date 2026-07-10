@@ -14,7 +14,7 @@ function Events() {
         <KolamPattern />
         <div className="events-page__inner">
           <h1 className="events-page__heading">Up-Coming Events</h1>
-          <div className="events-page__upcoming-grid">
+          <div className="events-page__upcoming-list">
             {UPCOMING_EVENTS.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
@@ -31,7 +31,7 @@ function Events() {
           <p className="events-page__subheading">
             Here are events that have previously been held.
           </p>
-          <div className="events-page__past-grid">
+          <div className="events-page__past-list">
             {PAST_EVENTS.map((event) => (
               <PastEventCard key={event.id} event={event} />
             ))}

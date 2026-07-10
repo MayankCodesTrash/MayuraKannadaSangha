@@ -17,8 +17,9 @@ describe('SponsorshipSection', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
-  it('renders two wave dividers (transition in and out)', () => {
+  it('renders a layered transition-in wave and a single transition-out wave', () => {
     const { container } = render(<SponsorshipSection />);
-    expect(container.querySelectorAll('.wave-divider svg')).toHaveLength(2);
+    // 3 layers for the incoming orange wave + 1 for the outgoing yellow wave
+    expect(container.querySelectorAll('.wave-divider svg')).toHaveLength(4);
   });
 });
