@@ -1,0 +1,14 @@
+.wave-divider {
+  width: 100%;
+  line-height: 0;
+}
+
+.wave-divider svg {
+  width: 100%;
+  height: 80px;
+  display: block;
+}
+
+.wave-divider--flip {
+  transform: scaleY(-1);
+}
