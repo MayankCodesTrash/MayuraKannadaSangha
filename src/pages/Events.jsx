@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
 import KolamPattern from '../components/KolamPattern.jsx';
 import EventCard from '../components/EventCard.jsx';
@@ -13,10 +14,18 @@ function Events() {
       <section className="events-page__section events-page__section--upcoming">
         <KolamPattern />
         <div className="events-page__inner">
-          <h1 className="events-page__heading">Up-Coming Events</h1>
+          <motion.h1
+            className="events-page__heading"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          >
+            Up-Coming Events
+          </motion.h1>
           <div className="events-page__upcoming-list">
-            {UPCOMING_EVENTS.map((event) => (
-              <EventCard key={event.id} event={event} />
+            {UPCOMING_EVENTS.map((event, index) => (
+              <EventCard key={event.id} event={event} index={index} />
             ))}
           </div>
         </div>
@@ -27,13 +36,21 @@ function Events() {
       <section className="events-page__section">
         <KolamPattern />
         <div className="events-page__inner">
-          <h2 className="events-page__heading">Past Events</h2>
+          <motion.h2
+            className="events-page__heading"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          >
+            Past Events
+          </motion.h2>
           <p className="events-page__subheading">
             Here are events that have previously been held.
           </p>
           <div className="events-page__past-list">
-            {PAST_EVENTS.map((event) => (
-              <PastEventCard key={event.id} event={event} />
+            {PAST_EVENTS.map((event, index) => (
+              <PastEventCard key={event.id} event={event} index={index} />
             ))}
           </div>
         </div>

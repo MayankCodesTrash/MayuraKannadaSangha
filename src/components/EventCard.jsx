@@ -1,8 +1,15 @@
+import { motion } from 'framer-motion';
 import './EventCard.css';
 
-function EventCard({ event }) {
+function EventCard({ event, index = 0 }) {
   return (
-    <div className="event-card">
+    <motion.div
+      className="event-card"
+      initial={{ opacity: 0, y: 48 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.15 }}
+    >
       <div className="event-card__image-wrap">
         <img src={event.image} alt={event.title} className="event-card__image" loading="lazy" />
         <div className="event-card__image-scrim" />
@@ -28,7 +35,7 @@ function EventCard({ event }) {
           </a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

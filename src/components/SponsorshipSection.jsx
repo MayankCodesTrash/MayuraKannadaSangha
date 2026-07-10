@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import WaveDivider from './WaveDivider.jsx';
 import WaveDividerLayers from './WaveDividerLayers.jsx';
 import './SponsorshipSection.css';
@@ -10,7 +11,13 @@ function SponsorshipSection() {
     <section className="sponsorship">
       <WaveDividerLayers fill="var(--color-orange)" />
       <div className="sponsorship__content">
-        <div className="sponsorship__inner">
+        <motion.div
+          className="sponsorship__inner"
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+        >
           <h2 className="sponsorship__title">Sponsorship Opportunities</h2>
           <p className="sponsorship__text">
             Click the &quot;More Info&quot; button to learn more about the 2025 Dasara
@@ -24,7 +31,7 @@ function SponsorshipSection() {
           >
             More Info
           </a>
-        </div>
+        </motion.div>
         <div className="sponsorship__wave-out">
           <WaveDivider fill="var(--color-yellow)" />
         </div>
