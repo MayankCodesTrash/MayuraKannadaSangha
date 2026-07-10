@@ -1,0 +1,50 @@
+.about {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.about__panel {
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 28px;
+  box-shadow:
+    0 8px 32px rgba(58, 34, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  padding: 40px;
+  color: var(--color-text-dark);
+}
+
+.about__paragraph {
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.about__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.about__paragraph--english {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+.about__paragraph--kannada {
+  font-family: var(--font-kannada);
+  font-size: 1rem;
+}
+
+@media (max-width: 860px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}
