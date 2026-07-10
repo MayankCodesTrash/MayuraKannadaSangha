@@ -21,7 +21,6 @@ describe('App routing', () => {
   });
 
   it.each([
-    ['/gallery', 'Gallery'],
     ['/culture', 'Our Culture and Values'],
     ['/team', 'Team'],
     ['/contact', 'Contact'],
@@ -43,5 +42,16 @@ describe('App routing', () => {
     expect(screen.getByRole('heading', { name: 'Up-Coming Events' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Past Events' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Sponsorship Opportunities' })).toBeInTheDocument();
+  });
+
+  it('renders the Gallery overview with a cover tile for each section', () => {
+    render(
+      <MemoryRouter initialEntries={['/gallery']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Gallery' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Community Service' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'MKS Rajyotsava' })).toBeInTheDocument();
   });
 });

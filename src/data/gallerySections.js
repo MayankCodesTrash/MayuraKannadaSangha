@@ -1,0 +1,101 @@
+const BASE_URL =
+  'https://storage.googleapis.com/production-websitebuilder-v1-0-7/287/1991287/3q88gokE';
+
+function urls(ids) {
+  return ids.map((id) => `${BASE_URL}/${id}`);
+}
+
+export const GALLERY_SECTIONS = [
+  {
+    id: 'community-service',
+    title: 'Community Service',
+    images: urls([
+      '620ce222bc944ebaa8a3025d8ae9b677',
+      'd551900220484f2f8e72b42a7ecebc12',
+      '99678932da644e9b9d225ff059295781',
+      'd4dc56cd8aae4e16b9365fd2b0f50603',
+      'c80f64b6d498439ebaefbf31f90b08ae',
+      'b90479f714ce4f36990a4b394fa0d630',
+      '1ef5175a774d45bf8292bbeabb4cdad2',
+      '6c43c1d598e741ee9268bc194854dfe4',
+      'effff291977047238ca9e685d5ad7496',
+      '01ff24f3f6db4661a37dc09cc37edc77',
+      '2c1131f4c7b74d719944761a3d0da7c6',
+      'a3d72d4dcdff4d4397d7f681b53b5493',
+    ]),
+  },
+  {
+    id: 'mks-rajyotsava',
+    title: 'MKS Rajyotsava',
+    images: urls([
+      '4311f8dcf0884cb4bca435abaf0fe647',
+      'ea9cc921125d43c9b3b1943dffd7870e',
+      '717d928fc1f3414b8d5cb0d63d865408',
+      '58191e41658645d98bc5cbfbecdf493c',
+      '26f7c88924684b248b5ef45a114e8e9d',
+      '1fc80c129bbf455db935f5bca2cd3885',
+      '5c6999517a794f1ca475c38d34035f47',
+      '147660d1a91842eeba7535143f5c9b72',
+      '48c991132705425184523800edc765ab',
+      'd1e59431ef4b45d1bcbfac1ff55f834a',
+      '7eb0e3a6f4c74df8bf14eb5ae3102dd6',
+    ]),
+  },
+  {
+    id: 'dasara-2024',
+    title: 'Dasara 2024',
+    images: urls([
+      '5b681e2eb1ba49e7b9dfd625fd616b27',
+      '23f5a6d9e78f4ad9b49fdccc14039a18',
+      '85e9fb33a9c24dd593ec293f32377a81',
+      '1b58ed3f9e30479f801b370a64e12dd6',
+      '73e59a32645b44f69970bd561f676502',
+      '93e21d3753b440c0a00079e348696717',
+      'ebdf90f322bc4be08d233ecd84ce660f',
+      '82eafeba1b2a4f3ca47d81327634f1e7',
+      'a399b36984354017adc0fd654a7d70ef',
+      'c4627533c40443ff96310a464ae2a6f6',
+      '47eccec0ca1a4ca89e9c0133498e38a9',
+      'd6122ae5ef3048aeb3c7f4d0d0a1799b',
+      'aaa01f93233c484a81d5de2d5dffa991',
+      '9359767fe2474666a1f6262d30d90189',
+      '7f5d81ebe26e4f619ed4b29e6bbe530a',
+      'aef8bf178ed94fd68340966e25db0a43',
+      '17ba71c006864642810ce04521ddf819',
+      'ba373a5f5c3642eeba1340adad8c9b32',
+    ]),
+  },
+  {
+    id: 'mks-picnics',
+    title: 'MKS Picnics',
+    images: urls([
+      '9234bf1a262745fb9dbe3e384bf34876',
+      '12e8429ca328435bb4a1accf2056b04f',
+      '7d59c39ff8b74d36a6e2541d0cbe17d8',
+      '0dd917ce26074d47aeb7fb6572df5c62',
+      '86a24c63aecc41f58572af97698fd2dd',
+      'c56c08ac01394364a2694c513db933d7',
+      '2507ab63ab0f44ceb308b7330053e14d',
+      'd9153a3c45a6426abb02267f81b3a025',
+      'de477d6c62c042f189df1746286264c1',
+      '72cd7495b4cb4d8fb761938452b538ff',
+    ]),
+  },
+  {
+    id: 'other-events',
+    title: 'Other Events',
+    images: urls([
+      '0a11a864c05d460db3741f0771e60810',
+      '38aa2f9db3b748ab9324da70e4242094',
+      '8b042ddd498c4ae7bb8c5c600a59955d',
+      '5ee98e6ced95410886f8e92f244b541f',
+      'd656692a81c1472ab6791d1606c64a34',
+      '9aec304fb0814c2fa8e28e2b6aa6acb3',
+      '39904bc5ff0e43a890b51ef77321f40a',
+      'f7b0ce1903b84a12989ff908df4dbd1f',
+      '14d1fac37e3a4e6d85ff0d965c37d907',
+      'ea54cbe6ddd84c1ca0e3d0252a1c2438',
+      'a1565c50c1af48dca3cce601d5c6141f',
+    ]),
+  },
+];
