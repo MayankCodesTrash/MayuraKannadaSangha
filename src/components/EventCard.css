@@ -57,6 +57,7 @@
   -webkit-backdrop-filter: blur(18px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-left: none;
+  box-shadow: 0 4px 14px rgba(58, 34, 0, 0.1);
 }
 
 .event-card__date {
