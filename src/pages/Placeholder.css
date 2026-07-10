@@ -1,0 +1,13 @@
+.placeholder {
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-yellow);
+  padding-top: var(--nav-height);
+}
+
+.placeholder__title {
+  position: relative;
+  text-align: center;
+  font-family: var(--font-display);
+  margin-top: 64px;
+}

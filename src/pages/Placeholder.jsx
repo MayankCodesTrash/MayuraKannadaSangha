@@ -1,27 +1,13 @@
 import Layout from '../components/Layout.jsx';
 import KolamPattern from '../components/KolamPattern.jsx';
+import './Placeholder.css';
 
 function Placeholder({ title }) {
   return (
     <Layout>
-      <section
-        style={{
-          minHeight: '100vh',
-          background: 'var(--color-yellow)',
-          paddingTop: 'var(--nav-height)',
-        }}
-      >
+      <section className="placeholder">
         <KolamPattern />
-        <h1
-          style={{
-            position: 'relative',
-            textAlign: 'center',
-            fontFamily: 'var(--font-display)',
-            marginTop: '64px',
-          }}
-        >
-          {title}
-        </h1>
+        <h1 className="placeholder__title">{title}</h1>
       </section>
     </Layout>
   );
