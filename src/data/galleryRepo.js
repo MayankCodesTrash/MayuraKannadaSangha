@@ -8,8 +8,8 @@ import {
   arrayUnion,
   arrayRemove,
 } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { db, storage } from '../firebase.js';
+import { db } from '../firebase.js';
+import { uploadImage } from '../cloudinary.js';
 
 const CATEGORIES_COLLECTION = 'galleryCategories';
 
@@ -20,19 +20,16 @@ export function subscribeToCategories(onChange) {
   });
 }
 
-async function uploadCategoryImage(categoryId, file) {
-  const storagePath = `gallery/${categoryId}/${file.name}`;
-  const storageRef = ref(storage, storagePath);
-  await uploadBytes(storageRef, file);
-  const url = await getDownloadURL(storageRef);
-  return { url, storagePath };
+async function uploadCategoryImage(file) {
+  const { url, publicId } = await uploadImage(file);
+  return { url, storagePath: publicId };
 }
 
 export async function createCategory(title, files) {
   const docRef = await addDoc(collection(db, CATEGORIES_COLLECTION), { title, images: [] });
   const images = [];
   for (const file of files) {
-    images.push(await uploadCategoryImage(docRef.id, file));
+    images.push(await uploadCategoryImage(file));
   }
   await updateDoc(doc(db, CATEGORIES_COLLECTION, docRef.id), { title, images });
   return docRef.id;
@@ -51,23 +48,15 @@ export async function renameCategory(categoryId, title) {
 export async function addImagesToCategory(categoryId, files) {
   const images = [];
   for (const file of files) {
-    images.push(await uploadCategoryImage(categoryId, file));
+    images.push(await uploadCategoryImage(file));
   }
   await updateDoc(doc(db, CATEGORIES_COLLECTION, categoryId), { images: arrayUnion(...images) });
 }
 
 export async function removeImageFromCategory(categoryId, image) {
   await updateDoc(doc(db, CATEGORIES_COLLECTION, categoryId), { images: arrayRemove(image) });
-  if (image.storagePath) {
-    await deleteObject(ref(storage, image.storagePath));
-  }
 }
 
-export async function deleteCategory(categoryId, images = []) {
+export async function deleteCategory(categoryId) {
   await deleteDoc(doc(db, CATEGORIES_COLLECTION, categoryId));
-  for (const image of images) {
-    if (image.storagePath) {
-      await deleteObject(ref(storage, image.storagePath));
-    }
-  }
 }

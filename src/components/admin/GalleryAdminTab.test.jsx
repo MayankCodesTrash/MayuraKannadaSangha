@@ -86,8 +86,23 @@ describe('GalleryAdminTab', () => {
     render(<GalleryAdminTab />);
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
 
+    await waitFor(() => expect(deleteCategory).toHaveBeenCalledWith('cat-1'));
+  });
+
+  it('shows an error message when creating a category with an unconfigured upload fails', async () => {
+    vi.mocked(createCategory).mockRejectedValue(
+      new Error('Image uploads are not connected yet.')
+    );
+    render(<GalleryAdminTab />);
+    fireEvent.click(screen.getByRole('button', { name: 'Add Category' }));
+
+    fireEvent.change(screen.getByLabelText('Category Title'), { target: { value: 'Picnics' } });
+    const file = new File(['x'], 'photo.jpg', { type: 'image/jpeg' });
+    fireEvent.change(screen.getByLabelText('Images'), { target: { files: [file] } });
+    fireEvent.click(screen.getByRole('button', { name: 'Create' }));
+
     await waitFor(() =>
-      expect(deleteCategory).toHaveBeenCalledWith('cat-1', SAMPLE_CATEGORY.images)
+      expect(screen.getByText('Image uploads are not connected yet.')).toBeInTheDocument()
     );
   });
 });

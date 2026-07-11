@@ -1,6 +1,6 @@
 import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { db, storage } from '../firebase.js';
+import { db } from '../firebase.js';
+import { uploadImage } from '../cloudinary.js';
 
 const EVENTS_COLLECTION = 'events';
 
@@ -11,12 +11,9 @@ export function subscribeToEvents(onChange) {
   });
 }
 
-export async function uploadEventImage(eventId, file) {
-  const storagePath = `events/${eventId}/${file.name}`;
-  const storageRef = ref(storage, storagePath);
-  await uploadBytes(storageRef, file);
-  const image = await getDownloadURL(storageRef);
-  return { image, storagePath };
+export async function uploadEventImage(file) {
+  const { url, publicId } = await uploadImage(file);
+  return { image: url, storagePath: publicId };
 }
 
 export async function createEvent(eventData) {
@@ -28,9 +25,6 @@ export async function updateEvent(eventId, eventData) {
   await updateDoc(doc(db, EVENTS_COLLECTION, eventId), eventData);
 }
 
-export async function deleteEvent(eventId, storagePath) {
+export async function deleteEvent(eventId) {
   await deleteDoc(doc(db, EVENTS_COLLECTION, eventId));
-  if (storagePath) {
-    await deleteObject(ref(storage, storagePath));
-  }
 }

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { uploadImage } from '../cloudinary.js';
 import {
   subscribeToCategories,
   createCategory,
@@ -11,6 +11,10 @@ import {
   deleteCategory,
 } from './galleryRepo.js';
 
+vi.mock('../cloudinary.js', () => ({
+  uploadImage: vi.fn(),
+}));
+
 beforeEach(() => {
   vi.mocked(collection).mockClear().mockReturnValue('categories-collection-ref');
   vi.mocked(doc).mockClear().mockReturnValue('category-doc-ref');
@@ -20,10 +24,7 @@ beforeEach(() => {
   vi.mocked(onSnapshot).mockClear();
   vi.mocked(arrayUnion).mockClear();
   vi.mocked(arrayRemove).mockClear();
-  vi.mocked(ref).mockClear().mockReturnValue('storage-ref');
-  vi.mocked(uploadBytes).mockClear();
-  vi.mocked(getDownloadURL).mockClear();
-  vi.mocked(deleteObject).mockClear();
+  vi.mocked(uploadImage).mockClear();
 });
 
 describe('galleryRepo', () => {
@@ -44,11 +45,11 @@ describe('galleryRepo', () => {
     expect(unsubscribe).toBe('unsubscribe-fn');
   });
 
-  it('createCategory uploads every file and creates a doc with the resulting images', async () => {
+  it('createCategory uploads every file via Cloudinary and creates a doc with the resulting images', async () => {
     vi.mocked(addDoc).mockResolvedValue({ id: 'new-cat-id' });
-    vi.mocked(getDownloadURL)
-      .mockResolvedValueOnce('https://example.com/a.jpg')
-      .mockResolvedValueOnce('https://example.com/b.jpg');
+    vi.mocked(uploadImage)
+      .mockResolvedValueOnce({ url: 'https://res.cloudinary.com/demo/image/upload/a.jpg', publicId: 'a' })
+      .mockResolvedValueOnce({ url: 'https://res.cloudinary.com/demo/image/upload/b.jpg', publicId: 'b' });
     const files = [
       new File(['a'], 'a.jpg', { type: 'image/jpeg' }),
       new File(['b'], 'b.jpg', { type: 'image/jpeg' }),
@@ -56,12 +57,12 @@ describe('galleryRepo', () => {
 
     const id = await createCategory('Picnics', files);
 
-    expect(uploadBytes).toHaveBeenCalledTimes(2);
+    expect(uploadImage).toHaveBeenCalledTimes(2);
     expect(updateDoc).toHaveBeenCalledWith('category-doc-ref', {
       title: 'Picnics',
       images: [
-        { url: 'https://example.com/a.jpg', storagePath: 'gallery/new-cat-id/a.jpg' },
-        { url: 'https://example.com/b.jpg', storagePath: 'gallery/new-cat-id/b.jpg' },
+        { url: 'https://res.cloudinary.com/demo/image/upload/a.jpg', storagePath: 'a' },
+        { url: 'https://res.cloudinary.com/demo/image/upload/b.jpg', storagePath: 'b' },
       ],
     });
     expect(id).toBe('new-cat-id');
@@ -72,7 +73,7 @@ describe('galleryRepo', () => {
 
     const id = await createCategoryFromUrls('Dasara 2024', ['https://example.com/x.jpg']);
 
-    expect(uploadBytes).not.toHaveBeenCalled();
+    expect(uploadImage).not.toHaveBeenCalled();
     expect(addDoc).toHaveBeenCalledWith('categories-collection-ref', {
       title: 'Dasara 2024',
       images: [{ url: 'https://example.com/x.jpg', storagePath: null }],
@@ -86,43 +87,37 @@ describe('galleryRepo', () => {
     expect(updateDoc).toHaveBeenCalledWith('category-doc-ref', { title: 'New Title' });
   });
 
-  it('addImagesToCategory uploads files and appends them with arrayUnion', async () => {
-    vi.mocked(getDownloadURL).mockResolvedValue('https://example.com/c.jpg');
+  it('addImagesToCategory uploads files via Cloudinary and appends them with arrayUnion', async () => {
+    vi.mocked(uploadImage).mockResolvedValue({
+      url: 'https://res.cloudinary.com/demo/image/upload/c.jpg',
+      publicId: 'c',
+    });
     vi.mocked(arrayUnion).mockReturnValue('array-union-result');
     const files = [new File(['c'], 'c.jpg', { type: 'image/jpeg' })];
 
     await addImagesToCategory('cat-1', files);
 
-    expect(uploadBytes).toHaveBeenCalledTimes(1);
+    expect(uploadImage).toHaveBeenCalledTimes(1);
     expect(arrayUnion).toHaveBeenCalledWith({
-      url: 'https://example.com/c.jpg',
-      storagePath: 'gallery/cat-1/c.jpg',
+      url: 'https://res.cloudinary.com/demo/image/upload/c.jpg',
+      storagePath: 'c',
     });
     expect(updateDoc).toHaveBeenCalledWith('category-doc-ref', { images: 'array-union-result' });
   });
 
-  it('removeImageFromCategory removes the image and deletes its storage object', async () => {
+  it('removeImageFromCategory removes the image from the doc', async () => {
     vi.mocked(arrayRemove).mockReturnValue('array-remove-result');
-    const image = { url: 'https://example.com/c.jpg', storagePath: 'gallery/cat-1/c.jpg' };
+    const image = { url: 'https://res.cloudinary.com/demo/image/upload/c.jpg', storagePath: 'c' };
 
     await removeImageFromCategory('cat-1', image);
 
     expect(arrayRemove).toHaveBeenCalledWith(image);
     expect(updateDoc).toHaveBeenCalledWith('category-doc-ref', { images: 'array-remove-result' });
-    expect(ref).toHaveBeenCalledWith(expect.anything(), 'gallery/cat-1/c.jpg');
-    expect(deleteObject).toHaveBeenCalledWith('storage-ref');
   });
 
-  it('deleteCategory deletes the doc and every image with a storagePath', async () => {
-    const images = [
-      { url: 'https://example.com/a.jpg', storagePath: 'gallery/cat-1/a.jpg' },
-      { url: 'https://example.com/b.jpg', storagePath: null },
-    ];
-
-    await deleteCategory('cat-1', images);
-
+  it('deleteCategory deletes the doc', async () => {
+    await deleteCategory('cat-1');
+    expect(doc).toHaveBeenCalledWith(expect.anything(), 'galleryCategories', 'cat-1');
     expect(deleteDoc).toHaveBeenCalledWith('category-doc-ref');
-    expect(deleteObject).toHaveBeenCalledTimes(1);
-    expect(ref).toHaveBeenCalledWith(expect.anything(), 'gallery/cat-1/a.jpg');
   });
 });

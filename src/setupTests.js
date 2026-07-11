@@ -35,11 +35,3 @@ vi.mock('firebase/firestore', () => ({
   arrayUnion: vi.fn((...items) => ({ __op: 'arrayUnion', items })),
   arrayRemove: vi.fn((item) => ({ __op: 'arrayRemove', item })),
 }));
-
-vi.mock('firebase/storage', () => ({
-  getStorage: vi.fn(() => ({})),
-  ref: vi.fn(() => ({})),
-  uploadBytes: vi.fn(() => Promise.resolve()),
-  getDownloadURL: vi.fn(() => Promise.resolve('https://example.com/mock-image.jpg')),
-  deleteObject: vi.fn(() => Promise.resolve()),
-}));

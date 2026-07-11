@@ -18,17 +18,21 @@ function GalleryAdminTab() {
   const [renameValue, setRenameValue] = useState('');
   const [addFiles, setAddFiles] = useState([]);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => subscribeToCategories(setCategories), []);
 
   async function handleAddCategory(event) {
     event.preventDefault();
     setSaving(true);
+    setError('');
     try {
       await createCategory(newTitle, newFiles);
       setNewTitle('');
       setNewFiles([]);
       setShowAddForm(false);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setSaving(false);
     }
@@ -49,9 +53,12 @@ function GalleryAdminTab() {
   async function handleAddImages(category) {
     if (addFiles.length === 0) return;
     setSaving(true);
+    setError('');
     try {
       await addImagesToCategory(category.id, addFiles);
       setAddFiles([]);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setSaving(false);
     }
@@ -64,7 +71,7 @@ function GalleryAdminTab() {
 
   async function handleDeleteCategory(category) {
     if (!window.confirm(`Delete the "${category.title}" category and all its images?`)) return;
-    await deleteCategory(category.id, category.images);
+    await deleteCategory(category.id);
     setEditingId(null);
   }
 
@@ -93,6 +100,7 @@ function GalleryAdminTab() {
             multiple
             onChange={(event) => setNewFiles(Array.from(event.target.files))}
           />
+          {error && <p className="gallery-admin__error">{error}</p>}
           <button type="submit" disabled={saving}>
             {saving ? 'Saving…' : 'Create'}
           </button>
@@ -148,6 +156,7 @@ function GalleryAdminTab() {
           <button type="button" onClick={() => handleAddImages(editingCategory)} disabled={saving}>
             {saving ? 'Uploading…' : 'Upload'}
           </button>
+          {error && <p className="gallery-admin__error">{error}</p>}
 
           <button type="button" onClick={() => setEditingId(null)}>
             Close

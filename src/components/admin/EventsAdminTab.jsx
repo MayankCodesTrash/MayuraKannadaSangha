@@ -28,6 +28,7 @@ function EventsAdminTab() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [imageFile, setImageFile] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => subscribeToEvents(setEvents), []);
 
@@ -92,6 +93,7 @@ function EventsAdminTab() {
   async function handleSubmit(event) {
     event.preventDefault();
     setSaving(true);
+    setError('');
     try {
       const buttons = form.buttons.filter((button) => button.label && button.url);
       const baseFields = {
@@ -108,19 +110,21 @@ function EventsAdminTab() {
       if (editingId) {
         let imageFields = { image: form.image, storagePath: form.storagePath };
         if (imageFile) {
-          imageFields = await uploadEventImage(editingId, imageFile);
+          imageFields = await uploadEventImage(imageFile);
         }
         await updateEvent(editingId, { ...baseFields, ...imageFields });
       } else {
         const newId = await createEvent({ ...baseFields, image: '', storagePath: null });
         if (imageFile) {
-          const imageFields = await uploadEventImage(newId, imageFile);
+          const imageFields = await uploadEventImage(imageFile);
           await updateEvent(newId, imageFields);
         }
       }
 
       setShowForm(false);
       setEditingId(null);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setSaving(false);
     }
@@ -128,7 +132,7 @@ function EventsAdminTab() {
 
   async function handleDelete(event) {
     if (!window.confirm(`Delete "${event.title}"?`)) return;
-    await deleteEvent(event.id, event.storagePath);
+    await deleteEvent(event.id);
   }
 
   return (
@@ -246,6 +250,8 @@ function EventsAdminTab() {
               </button>
             )}
           </fieldset>
+
+          {error && <p className="events-admin__error">{error}</p>}
 
           <div className="events-admin__form-actions">
             <button type="submit" disabled={saving}>

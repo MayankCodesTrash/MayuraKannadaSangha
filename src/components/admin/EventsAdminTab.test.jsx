@@ -14,7 +14,7 @@ vi.mock('../../data/eventsRepo.js', () => ({
   createEvent: vi.fn(() => Promise.resolve('new-evt-id')),
   updateEvent: vi.fn(() => Promise.resolve()),
   deleteEvent: vi.fn(() => Promise.resolve()),
-  uploadEventImage: vi.fn(() => Promise.resolve({ image: 'https://example.com/img.jpg', storagePath: 'events/new-evt-id/img.jpg' })),
+  uploadEventImage: vi.fn(() => Promise.resolve({ image: 'https://example.com/img.jpg', storagePath: 'img' })),
 }));
 
 const SAMPLE_EVENT = {
@@ -103,6 +103,22 @@ describe('EventsAdminTab', () => {
     render(<EventsAdminTab />);
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
 
-    await waitFor(() => expect(deleteEvent).toHaveBeenCalledWith('evt-1', 'events/evt-1/dasara.jpg'));
+    await waitFor(() => expect(deleteEvent).toHaveBeenCalledWith('evt-1'));
+  });
+
+  it('shows an error message when the image upload fails', async () => {
+    vi.mocked(uploadEventImage).mockRejectedValue(
+      new Error('Image uploads are not connected yet.')
+    );
+    render(<EventsAdminTab />);
+    fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
+
+    const file = new File(['x'], 'photo.jpg', { type: 'image/jpeg' });
+    fireEvent.change(screen.getByLabelText('Image'), { target: { files: [file] } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    await waitFor(() =>
+      expect(screen.getByText('Image uploads are not connected yet.')).toBeInTheDocument()
+    );
   });
 });

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { uploadImage } from '../cloudinary.js';
 import {
   subscribeToEvents,
   uploadEventImage,
@@ -9,6 +9,12 @@ import {
   deleteEvent,
 } from './eventsRepo.js';
 
+vi.mock('../cloudinary.js', () => ({
+  uploadImage: vi.fn(() =>
+    Promise.resolve({ url: 'https://res.cloudinary.com/demo/image/upload/photo.jpg', publicId: 'photo' })
+  ),
+}));
+
 beforeEach(() => {
   vi.mocked(collection).mockClear().mockReturnValue('events-collection-ref');
   vi.mocked(doc).mockClear().mockReturnValue('event-doc-ref');
@@ -16,10 +22,7 @@ beforeEach(() => {
   vi.mocked(updateDoc).mockClear();
   vi.mocked(deleteDoc).mockClear();
   vi.mocked(onSnapshot).mockClear();
-  vi.mocked(ref).mockClear().mockReturnValue('storage-ref');
-  vi.mocked(uploadBytes).mockClear();
-  vi.mocked(getDownloadURL).mockClear();
-  vi.mocked(deleteObject).mockClear();
+  vi.mocked(uploadImage).mockClear();
 });
 
 describe('eventsRepo', () => {
@@ -46,15 +49,20 @@ describe('eventsRepo', () => {
     expect(unsubscribe).toBe('unsubscribe-fn');
   });
 
-  it('uploadEventImage uploads the file to storage and returns its url and path', async () => {
-    vi.mocked(getDownloadURL).mockResolvedValue('https://example.com/photo.jpg');
+  it('uploadEventImage uploads the file via Cloudinary and returns its url and public id', async () => {
+    vi.mocked(uploadImage).mockResolvedValue({
+      url: 'https://res.cloudinary.com/demo/image/upload/photo.jpg',
+      publicId: 'photo',
+    });
     const file = new File(['data'], 'photo.jpg', { type: 'image/jpeg' });
 
-    const result = await uploadEventImage('evt-1', file);
+    const result = await uploadEventImage(file);
 
-    expect(ref).toHaveBeenCalledWith(expect.anything(), 'events/evt-1/photo.jpg');
-    expect(uploadBytes).toHaveBeenCalledWith('storage-ref', file);
-    expect(result).toEqual({ image: 'https://example.com/photo.jpg', storagePath: 'events/evt-1/photo.jpg' });
+    expect(uploadImage).toHaveBeenCalledWith(file);
+    expect(result).toEqual({
+      image: 'https://res.cloudinary.com/demo/image/upload/photo.jpg',
+      storagePath: 'photo',
+    });
   });
 
   it('createEvent adds a document to the events collection and returns its id', async () => {
@@ -76,16 +84,9 @@ describe('eventsRepo', () => {
     expect(updateDoc).toHaveBeenCalledWith('event-doc-ref', { title: 'Updated' });
   });
 
-  it('deleteEvent deletes the document and its storage image when a storagePath is given', async () => {
-    await deleteEvent('evt-1', 'events/evt-1/photo.jpg');
+  it('deleteEvent deletes the document', async () => {
+    await deleteEvent('evt-1');
+    expect(doc).toHaveBeenCalledWith(expect.anything(), 'events', 'evt-1');
     expect(deleteDoc).toHaveBeenCalledWith('event-doc-ref');
-    expect(ref).toHaveBeenCalledWith(expect.anything(), 'events/evt-1/photo.jpg');
-    expect(deleteObject).toHaveBeenCalledWith('storage-ref');
-  });
-
-  it('deleteEvent skips storage deletion when there is no storagePath', async () => {
-    await deleteEvent('evt-1', null);
-    expect(deleteDoc).toHaveBeenCalled();
-    expect(deleteObject).not.toHaveBeenCalled();
   });
 });
