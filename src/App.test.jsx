@@ -1,21 +1,16 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { AuthProvider } from './auth/AuthContext.jsx';
+import { onAuthStateChanged } from 'firebase/auth';
 import App from './App.jsx';
 
 describe('App routing', () => {
   it('renders the hero welcome text on the home route', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </MemoryRouter>
     );
-    // "Mayura Kannada Sangha" appears in both the hero title and the footer
-    // name, each split across <span> elements to highlight the M/K/S
-    // initials, so match on full text content rather than a plain string.
     expect(
       screen.getAllByText(
         (_, element) => element.tagName === 'P' && element.textContent === 'Mayura Kannada Sangha'
@@ -23,27 +18,39 @@ describe('App routing', () => {
     ).toHaveLength(2);
   });
 
-  it.each([
-    ['/culture', 'Our Culture and Values'],
-    ['/team', 'Team'],
-    ['/contact', 'Contact'],
-  ])('renders a placeholder heading for %s', (path, heading) => {
+  it('renders the Culture & Values page', () => {
     render(
-      <MemoryRouter initialEntries={[path]}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+      <MemoryRouter initialEntries={['/culture']}>
+        <App />
       </MemoryRouter>
     );
-    expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Mayura Kannada Sangha – Central Iowa' })
+    ).toBeInTheDocument();
   });
 
-  it('renders the Events page with upcoming and past events', () => {
+  it('renders the Team page', () => {
+    render(
+      <MemoryRouter initialEntries={['/team']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: '2026 Office Bearers' })).toBeInTheDocument();
+  });
+
+  it('renders the Contact page', () => {
+    render(
+      <MemoryRouter initialEntries={['/contact']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Get in Touch' })).toBeInTheDocument();
+  });
+
+  it('renders the Events page with upcoming and past sections', () => {
     render(
       <MemoryRouter initialEntries={['/events']}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </MemoryRouter>
     );
     expect(screen.getByRole('heading', { name: 'Up-Coming Events' })).toBeInTheDocument();
@@ -54,11 +61,44 @@ describe('App routing', () => {
   it('renders the Gallery overview heading', () => {
     render(
       <MemoryRouter initialEntries={['/gallery']}>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <App />
       </MemoryRouter>
     );
     expect(screen.getByRole('heading', { name: 'Gallery' })).toBeInTheDocument();
+  });
+
+  it('shows the admin login form on /admin/login', () => {
+    render(
+      <MemoryRouter initialEntries={['/admin/login']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Admin Sign In' })).toBeInTheDocument();
+  });
+
+  it('redirects /admin to the login page when logged out', () => {
+    vi.mocked(onAuthStateChanged).mockImplementation((auth, callback) => {
+      callback(null);
+      return () => {};
+    });
+    render(
+      <MemoryRouter initialEntries={['/admin']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Admin Sign In' })).toBeInTheDocument();
+  });
+
+  it('shows the dashboard at /admin when logged in', () => {
+    vi.mocked(onAuthStateChanged).mockImplementation((auth, callback) => {
+      callback({ email: 'admin@mayurakannadasangha.org' });
+      return () => {};
+    });
+    render(
+      <MemoryRouter initialEntries={['/admin']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByRole('heading', { name: 'Admin Dashboard' })).toBeInTheDocument();
   });
 });
