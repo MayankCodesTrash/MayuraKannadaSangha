@@ -41,3 +41,33 @@
   color: #fff;
   border-color: #333;
 }
+
+@media (max-width: 640px) {
+  .admin-dashboard {
+    padding: 16px;
+  }
+
+  .admin-dashboard__header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .admin-dashboard__header-actions {
+    flex-direction: column;
+  }
+
+  .admin-dashboard__header-actions button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .admin-dashboard__tabs {
+    flex-direction: column;
+  }
+
+  .admin-dashboard__tab {
+    width: 100%;
+    min-height: 44px;
+  }
+}

@@ -63,3 +63,21 @@
   font-size: 0.85rem;
   margin: 4px 0 0;
 }
+
+@media (max-width: 640px) {
+  .gallery-admin__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .gallery-admin__add-form,
+  .gallery-admin__editor {
+    max-width: 100%;
+  }
+
+  .gallery-admin__row button,
+  .gallery-admin__editor button {
+    min-height: 44px;
+  }
+}

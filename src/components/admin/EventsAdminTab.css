@@ -78,3 +78,29 @@
   font-size: 0.85rem;
   margin: 4px 0 0;
 }
+
+@media (max-width: 640px) {
+  .events-admin__row {
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .events-admin__row button {
+    min-height: 44px;
+  }
+
+  .events-admin__form {
+    max-width: 100%;
+  }
+
+  .events-admin__button-row {
+    flex-direction: column;
+  }
+
+  .events-admin__form-actions button,
+  .events-admin__add {
+    min-height: 44px;
+  }
+}
