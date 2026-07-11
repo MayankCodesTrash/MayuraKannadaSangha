@@ -18,7 +18,8 @@ function AdminLogin() {
     try {
       await login(username, password);
       navigate('/admin');
-    } catch {
+    } catch (err) {
+      console.error('Admin login failed:', err);
       setError('Invalid username or password');
     } finally {
       setSubmitting(false);
