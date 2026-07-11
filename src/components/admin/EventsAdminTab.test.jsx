@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import {
   subscribeToEvents,
   createEvent,
@@ -50,14 +50,12 @@ describe('EventsAdminTab', () => {
     expect(screen.getByText('upcoming')).toBeInTheDocument();
   });
 
-  it('creates a new event with a title, required fields, and one button', async () => {
+  it('creates a new event with a title, date, and one button', async () => {
     render(<EventsAdminTab />);
     fireEvent.click(screen.getByRole('button', { name: 'Add Event' }));
 
     fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'Summer Picnic' } });
-    fireEvent.change(screen.getByLabelText('Day'), { target: { value: '9' } });
-    fireEvent.change(screen.getByLabelText('Month'), { target: { value: 'August' } });
-    fireEvent.change(screen.getByLabelText('Year'), { target: { value: '2026' } });
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-08-09' } });
     fireEvent.change(screen.getByLabelText('Location'), { target: { value: 'Polk City, IA' } });
 
     fireEvent.click(screen.getByRole('button', { name: 'Add Button' }));
@@ -92,10 +90,11 @@ describe('EventsAdminTab', () => {
     expect(screen.queryByRole('button', { name: 'Add Button' })).not.toBeInTheDocument();
   });
 
-  it('pre-fills the form when editing an existing event', () => {
+  it('pre-fills the form when editing an existing event, including the date picker', () => {
     render(<EventsAdminTab />);
     fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
     expect(screen.getByLabelText('Title')).toHaveValue('Dasara Mahotsava 2025');
+    expect(screen.getByLabelText('Date')).toHaveValue('2025-09-27');
     expect(screen.getByLabelText('Button 1 label')).toHaveValue('Tickets');
   });
 

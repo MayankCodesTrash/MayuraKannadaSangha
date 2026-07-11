@@ -8,11 +8,30 @@ import {
 } from '../../data/eventsRepo.js';
 import './EventsAdminTab.css';
 
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+function isoToDateFields(isoDate) {
+  if (!isoDate) return { day: '', month: '', year: '' };
+  const [year, month, day] = isoDate.split('-');
+  return {
+    day: String(Number(day)),
+    month: MONTH_NAMES[Number(month) - 1] ?? '',
+    year,
+  };
+}
+
+function dateFieldsToISO(day, month, year) {
+  const monthIndex = MONTH_NAMES.indexOf(month);
+  if (!day || monthIndex === -1 || !year) return '';
+  return `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
 const EMPTY_FORM = {
   title: '',
-  day: '',
-  month: '',
-  year: '',
+  eventDate: '',
   time: '',
   location: '',
   status: 'upcoming',
@@ -42,9 +61,7 @@ function EventsAdminTab() {
   function startEdit(event) {
     setForm({
       title: event.title ?? '',
-      day: event.day ?? '',
-      month: event.month ?? '',
-      year: event.year ?? '',
+      eventDate: dateFieldsToISO(event.day, event.month, event.year),
       time: event.time ?? '',
       location: event.location ?? '',
       status: event.status ?? 'upcoming',
@@ -96,11 +113,12 @@ function EventsAdminTab() {
     setError('');
     try {
       const buttons = form.buttons.filter((button) => button.label && button.url);
+      const { day, month, year } = isoToDateFields(form.eventDate);
       const baseFields = {
         title: form.title,
-        day: form.day,
-        month: form.month,
-        year: form.year,
+        day,
+        month,
+        year,
         time: form.time,
         location: form.location,
         status: form.status,
@@ -166,27 +184,12 @@ function EventsAdminTab() {
             required
           />
 
-          <label htmlFor="event-day">Day</label>
+          <label htmlFor="event-date">Date</label>
           <input
-            id="event-day"
-            value={form.day}
-            onChange={(event) => updateField('day', event.target.value)}
-            required
-          />
-
-          <label htmlFor="event-month">Month</label>
-          <input
-            id="event-month"
-            value={form.month}
-            onChange={(event) => updateField('month', event.target.value)}
-            required
-          />
-
-          <label htmlFor="event-year">Year</label>
-          <input
-            id="event-year"
-            value={form.year}
-            onChange={(event) => updateField('year', event.target.value)}
+            id="event-date"
+            type="date"
+            value={form.eventDate}
+            onChange={(event) => updateField('eventDate', event.target.value)}
             required
           />
 
