@@ -11,6 +11,13 @@
   --nav-height-scrolled: 120px;
 }
 
+@media (max-width: 640px) {
+  :root {
+    --nav-height: 96px;
+    --nav-height-scrolled: 64px;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
