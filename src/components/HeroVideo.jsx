@@ -27,10 +27,28 @@ function HeroVideo() {
       }
     }
 
+    // iOS Safari never decodes/renders a video frame until playback has
+    // actually started at least once - setting `currentTime` alone leaves
+    // it blank. Priming with a play() immediately followed by pause()
+    // forces it to render, after which scroll-driven seeking works.
+    function primeVideo() {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.then(() => video.pause()).catch(() => {});
+      }
+    }
+
+    if (video.readyState >= 3) {
+      primeVideo();
+    } else {
+      video.addEventListener('canplay', primeVideo, { once: true });
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
     return () => {
+      video.removeEventListener('canplay', primeVideo);
       window.removeEventListener('scroll', onScroll);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
@@ -44,6 +62,7 @@ function HeroVideo() {
           className="hero__video"
           muted
           playsInline
+          autoPlay
           preload="auto"
         >
           <source src="/videos/0709.mp4" type="video/mp4" />
