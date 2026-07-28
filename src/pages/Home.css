@@ -1,6 +1,7 @@
-.home__blank {
-  min-height: 100vh;
+.home__intro {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  background: var(--color-yellow);
+  gap: 32px;
+  padding: 72px 0 40px;
 }

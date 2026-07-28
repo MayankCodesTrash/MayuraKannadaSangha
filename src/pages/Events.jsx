@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
-import KolamPattern from '../components/KolamPattern.jsx';
 import EventCard from '../components/EventCard.jsx';
 import SponsorshipSection from '../components/SponsorshipSection.jsx';
 import PastEventCard from '../components/PastEventCard.jsx';
@@ -19,7 +18,6 @@ function Events() {
   return (
     <Layout>
       <section className="events-page__section events-page__section--upcoming">
-        <KolamPattern />
         <div className="events-page__inner">
           <motion.h1
             className="events-page__heading"
@@ -41,7 +39,6 @@ function Events() {
       <SponsorshipSection />
 
       <section className="events-page__section">
-        <KolamPattern />
         <div className="events-page__inner">
           <motion.h2
             className="events-page__heading"

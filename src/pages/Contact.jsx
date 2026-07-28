@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import Layout from '../components/Layout.jsx';
-import KolamPattern from '../components/KolamPattern.jsx';
 import { EMAILJS_CONFIG, isEmailjsConfigured } from '../emailjs.js';
 import './Contact.css';
 
@@ -40,7 +39,6 @@ function Contact() {
   return (
     <Layout>
       <section className="contact-page">
-        <KolamPattern />
         <div className="contact-page__inner">
           <motion.h1
             className="contact-page__heading"

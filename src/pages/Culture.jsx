@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
-import KolamPattern from '../components/KolamPattern.jsx';
 import { CULTURE_CONTENT } from '../data/cultureContent.js';
 import './Culture.css';
 
@@ -13,7 +12,6 @@ function Culture() {
   return (
     <Layout>
       <section className="culture-page">
-        <KolamPattern />
         <div className="culture-page__inner">
           <div className="culture-page__toggle">
             <button

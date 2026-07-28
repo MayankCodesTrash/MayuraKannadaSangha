@@ -33,6 +33,18 @@ describe('AdminLogin', () => {
     expect(screen.getByRole('button', { name: 'Sign In' })).toBeInTheDocument();
   });
 
+  it('toggles the password field between hidden and visible text', () => {
+    renderLogin();
+    const passwordInput = screen.getByLabelText('Password');
+    expect(passwordInput).toHaveAttribute('type', 'password');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Show password' }));
+    expect(passwordInput).toHaveAttribute('type', 'text');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Hide password' }));
+    expect(passwordInput).toHaveAttribute('type', 'password');
+  });
+
   it('logs in and redirects to /admin on success', async () => {
     mockLogin.mockResolvedValue();
     renderLogin();

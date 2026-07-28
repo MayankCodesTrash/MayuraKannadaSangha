@@ -1,11 +1,10 @@
 .kolam-pattern {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  z-index: -1;
   background-image: url('/yellow-swirls-pattern_1040-37.avif');
   background-repeat: repeat;
-  background-size: 260px;
-  opacity: 0.22;
+  background-size: 420px;
+  opacity: 0.4;
   pointer-events: none;
 }

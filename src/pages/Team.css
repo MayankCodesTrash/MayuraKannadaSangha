@@ -1,6 +1,5 @@
 .team-page {
-  background: var(--color-yellow);
-  padding: calc(var(--nav-height) + 40px) 24px 100px;
+  padding: calc(var(--nav-height) + var(--top-banner-height) + 40px) 24px 100px;
 }
 
 .team-page__inner {
@@ -35,10 +34,9 @@
 }
 
 .team-page__card {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: var(--color-card);
   border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(58, 34, 0, 0.12);
   padding: 28px 16px;
 }
 

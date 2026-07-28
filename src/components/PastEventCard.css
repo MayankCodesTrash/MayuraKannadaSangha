@@ -54,10 +54,7 @@
   gap: 24px;
   padding: 14px 22px;
   color: var(--color-text-dark);
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: var(--color-card);
   border-left: none;
   box-shadow: 0 4px 14px rgba(58, 34, 0, 0.1);
 }
@@ -96,7 +93,5 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    border-left: 1px solid rgba(255, 255, 255, 0.4);
-    border-top: none;
   }
 }

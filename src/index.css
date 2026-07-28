@@ -1,20 +1,23 @@
 :root {
   --color-yellow: #f5b800;
   --color-yellow-dark: #d99f00;
+  --color-bg: #f8db83;
   --color-orange: #e8622c;
   --color-orange-dark: #c94f1f;
   --color-text-dark: #3a2200;
   --color-text-light: #fff8e7;
+  --color-card: #fff8e7;
   --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Lora', 'Georgia', serif;
   --font-kannada: 'Noto Sans Kannada', sans-serif;
-  --nav-height: 256px;
-  --nav-height-scrolled: 120px;
+  --nav-height: 120px;
+  --top-banner-height: 44px;
 }
 
 @media (max-width: 640px) {
   :root {
-    --nav-height: 96px;
-    --nav-height-scrolled: 64px;
+    --nav-height: calc(100vw / 6);
+    --top-banner-height: 0px;
   }
 }
 
@@ -31,9 +34,9 @@ body,
 }
 
 body {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   color: var(--color-text-dark);
-  background: var(--color-yellow);
+  background: var(--color-bg);
 }
 
 a {
