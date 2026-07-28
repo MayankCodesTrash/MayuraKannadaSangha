@@ -1,10 +1,9 @@
 .events-page__section {
-  background: var(--color-yellow);
   padding: 80px 24px;
 }
 
 .events-page__section--upcoming {
-  padding-top: 140px;
+  padding-top: calc(140px + var(--top-banner-height));
 }
 
 .events-page__inner {
@@ -40,4 +39,32 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .events-page__section {
+    padding: 40px 16px;
+  }
+
+  .events-page__section--upcoming {
+    padding-top: calc(100px + var(--top-banner-height));
+  }
+
+  .events-page__heading {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+  }
+
+  .events-page__subheading {
+    margin-bottom: 24px;
+  }
+
+  .events-page__upcoming-list {
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .events-page__past-list {
+    gap: 10px;
+  }
 }

@@ -3,6 +3,15 @@ import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebas
 import { auth } from '../firebase.js';
 
 const ADMIN_EMAIL = 'admin@mayurakannadasangha.org';
+const ADMIN_USERNAME = 'admin';
+
+// The actual password is verified by Firebase Auth (server-side), not by this
+// file — changing this constant alone does nothing. To change the real
+// password, set the Firebase user's password to match this value in the
+// Firebase console: Authentication -> Users -> admin@mayurakannadasangha.org
+// -> Reset password. Keeping this constant in sync is just a convenience so
+// the current password is documented in one place.
+const ADMIN_PASSWORD = 'MayuraAdminKarnataka772';
 
 const AuthContext = createContext(null);
 
@@ -19,7 +28,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function login(username, password) {
-    if (username.trim().toLowerCase() !== 'admin') {
+    if (username.trim().toLowerCase() !== ADMIN_USERNAME) {
       throw new Error('Invalid username or password');
     }
     await signInWithEmailAndPassword(auth, ADMIN_EMAIL, password);

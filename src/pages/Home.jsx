@@ -1,17 +1,21 @@
 import Layout from '../components/Layout.jsx';
-import HeroVideo from '../components/HeroVideo.jsx';
-import KolamPattern from '../components/KolamPattern.jsx';
+import LogoBanner from '../components/LogoBanner.jsx';
+import Hero from '../components/Hero.jsx';
 import AboutSection from '../components/AboutSection.jsx';
+import HomeEventsPreview from '../components/HomeEventsPreview.jsx';
+import HomePhotoHighlights from '../components/HomePhotoHighlights.jsx';
 import './Home.css';
 
 function Home() {
   return (
     <Layout>
-      <HeroVideo />
-      <section className="home__blank">
-        <KolamPattern />
+      <LogoBanner />
+      <Hero />
+      <section className="home__intro">
         <AboutSection />
       </section>
+      <HomeEventsPreview />
+      <HomePhotoHighlights />
     </Layout>
   );
 }

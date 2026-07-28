@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
-import KolamPattern from '../components/KolamPattern.jsx';
 import GalleryLightbox from '../components/GalleryLightbox.jsx';
 import { subscribeToCategories } from '../data/galleryRepo.js';
 import './Gallery.css';
@@ -47,7 +46,6 @@ function Gallery() {
   return (
     <Layout>
       <section className="gallery-page">
-        <KolamPattern />
         <div className="gallery-page__inner">
           {!category ? (
             <motion.div

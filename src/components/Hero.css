@@ -1,0 +1,130 @@
+.hero {
+  position: relative;
+  height: 92vh;
+  min-height: 480px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3a1a10;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__tint {
+  position: absolute;
+  inset: 0;
+  background: rgba(120, 45, 20, 0.35);
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.hero__text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-text-light);
+  padding: 0 24px;
+}
+
+.hero__line {
+  margin: 0.15em 0;
+  text-align: center;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero__line--english {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.75rem);
+}
+
+.hero__line--kannada {
+  font-family: var(--font-kannada);
+  font-size: clamp(1.3rem, 3.5vw, 2.25rem);
+}
+
+.hero__line--title {
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-weight: 700;
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  z-index: 1;
+  width: 22px;
+  height: 34px;
+  border: 2px solid rgba(255, 248, 231, 0.8);
+  border-radius: 12px;
+  transform: translateX(-50%);
+}
+
+.hero__scroll-cue::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background: rgba(255, 248, 231, 0.9);
+  transform: translateX(-50%);
+  animation: hero-scroll-cue 1.6s ease-in-out infinite;
+}
+
+@keyframes hero-scroll-cue {
+  0% {
+    opacity: 1;
+    top: 6px;
+  }
+  70% {
+    opacity: 0;
+    top: 16px;
+  }
+  100% {
+    opacity: 0;
+    top: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    height: 88vh;
+    padding-top: calc(var(--nav-height) + var(--top-banner-height));
+  }
+
+  .hero__text {
+    padding: 0 16px;
+  }
+
+  .hero__line--english {
+    font-size: clamp(1.05rem, 4.5vw, 1.5rem);
+  }
+
+  .hero__line--kannada {
+    font-size: clamp(0.95rem, 4vw, 1.3rem);
+  }
+
+  .hero__line--title {
+    font-size: clamp(1.6rem, 7vw, 2.25rem);
+  }
+
+  .hero__scroll-cue {
+    bottom: 18px;
+  }
+}

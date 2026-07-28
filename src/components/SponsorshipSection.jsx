@@ -33,7 +33,7 @@ function SponsorshipSection() {
           </a>
         </motion.div>
         <div className="sponsorship__wave-out">
-          <WaveDivider fill="var(--color-yellow)" />
+          <WaveDivider fill="var(--color-bg)" />
         </div>
       </div>
     </section>

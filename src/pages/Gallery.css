@@ -1,6 +1,5 @@
 .gallery-page {
-  background: var(--color-yellow);
-  padding: calc(var(--nav-height) + 40px) 24px 100px;
+  padding: calc(var(--nav-height) + var(--top-banner-height) + 40px) 24px 100px;
 }
 
 .gallery-page__inner {
@@ -22,10 +21,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: var(--color-card);
+  border: 1px solid rgba(58, 34, 0, 0.1);
   color: var(--color-orange-dark);
   font-weight: 700;
   font-family: var(--font-display);

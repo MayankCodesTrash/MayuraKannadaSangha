@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
-import KolamPattern from '../components/KolamPattern.jsx';
 import { GavelIcon, QuillIcon, CoinIcon, ChairIcon } from '../components/icons/RoleIcons.jsx';
 import './Team.css';
 
@@ -16,7 +15,6 @@ function Team() {
   return (
     <Layout>
       <section className="team-page">
-        <KolamPattern />
         <div className="team-page__inner">
           <motion.h1
             className="team-page__heading"

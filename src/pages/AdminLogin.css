@@ -34,6 +34,30 @@
   font-size: 1rem;
 }
 
+.admin-login__password-row {
+  display: flex;
+  gap: 6px;
+}
+
+.admin-login__password-row input {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-login__password-toggle {
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #eee;
+  color: #333;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.admin-login__password-toggle:hover {
+  background: #e0e0e0;
+}
+
 .admin-login__form button {
   margin-top: 12px;
   padding: 10px;
