@@ -1,6 +1,6 @@
 export const CLOUDINARY_CONFIG = {
-  cloudName: '',
-  uploadPreset: '',
+  cloudName: 'rrlaxxzt',
+  uploadPreset: 'snuzchhq',
 };
 
 export function isCloudinaryConfigured() {
