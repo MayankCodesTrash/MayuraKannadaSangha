@@ -23,7 +23,7 @@ describe('Footer', () => {
 
   it('renders all six nav links', () => {
     renderFooter();
-    ['Home', 'Events', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
+    ['Home', 'Events', 'Our Sponsors', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
       (label) => {
         expect(screen.getByRole('link', { name: label })).toBeInTheDocument();
       }

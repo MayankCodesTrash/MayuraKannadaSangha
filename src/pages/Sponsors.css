@@ -1,0 +1,89 @@
+.sponsors-tiers {
+  padding: 80px 24px 100px;
+}
+
+.sponsors-tiers__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sponsors-tiers__heading {
+  font-family: var(--font-display);
+  color: var(--color-text-dark);
+  text-align: center;
+  font-size: 2.25rem;
+  margin: 0 0 48px;
+}
+
+.sponsors-tiers__tier {
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.sponsors-tiers__tier:last-child {
+  margin-bottom: 0;
+}
+
+.sponsors-tiers__tier-label {
+  font-family: var(--font-display);
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid currentColor;
+  display: inline-block;
+}
+
+.sponsors-tiers__placeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.sponsors-tiers__placeholder {
+  aspect-ratio: 16 / 9;
+  border: 2px dashed currentColor;
+  border-radius: 12px;
+  opacity: 0.6;
+}
+
+.sponsors-tiers__tier--gold {
+  color: #b8860b;
+}
+
+.sponsors-tiers__tier--gold .sponsors-tiers__placeholder {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.sponsors-tiers__tier--silver {
+  color: #8a8a8a;
+}
+
+.sponsors-tiers__tier--silver .sponsors-tiers__placeholder {
+  background: rgba(192, 192, 192, 0.2);
+}
+
+.sponsors-tiers__tier--bronze {
+  color: #a1622c;
+}
+
+.sponsors-tiers__tier--bronze .sponsors-tiers__placeholder {
+  background: rgba(205, 127, 50, 0.15);
+}
+
+@media (max-width: 640px) {
+  .sponsors-tiers {
+    padding: 40px 16px 60px;
+  }
+
+  .sponsors-tiers__heading {
+    font-size: 1.6rem;
+    margin-bottom: 32px;
+  }
+
+  .sponsors-tiers__placeholder-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}

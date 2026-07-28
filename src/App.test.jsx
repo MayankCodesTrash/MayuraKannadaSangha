@@ -55,7 +55,16 @@ describe('App routing', () => {
     );
     expect(screen.getByRole('heading', { name: 'Up-Coming Events' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Past Events' })).toBeInTheDocument();
+  });
+
+  it('renders the Sponsors page with sponsorship info and gold/silver/bronze tiers', () => {
+    render(
+      <MemoryRouter initialEntries={['/sponsors']}>
+        <App />
+      </MemoryRouter>
+    );
     expect(screen.getByRole('heading', { name: 'Sponsorship Opportunities' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our Sponsors' })).toBeInTheDocument();
   });
 
   it('renders the Gallery overview heading', () => {

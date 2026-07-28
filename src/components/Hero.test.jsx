@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Hero from './Hero.jsx';
-import { GALLERY_IMAGES } from '../data/galleryImages.js';
 
 describe('Hero', () => {
-  it('renders a background photo slide and every welcome line', () => {
+  it('renders the scroll-scrubbed video and every hero text line, centered', () => {
     const { container } = render(<Hero />);
-    const slide = container.querySelector('.hero__slide');
-    expect(slide).toBeInTheDocument();
-    expect(slide).toHaveAttribute('src', GALLERY_IMAGES[0]);
+    const video = container.querySelector('video');
+    expect(video).toBeInTheDocument();
+    expect(video.querySelector('source').getAttribute('src')).toBe('/videos/0709.mp4');
 
     [
       'Welcome to',

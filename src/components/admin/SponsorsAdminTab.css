@@ -1,0 +1,75 @@
+.sponsors-admin {
+  font-family: system-ui, sans-serif;
+}
+
+.sponsors-admin__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 420px;
+  padding: 16px;
+  margin: 16px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.sponsors-admin__list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.sponsors-admin__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.sponsors-admin__thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.sponsors-admin__name {
+  flex: 1;
+  font-weight: 600;
+}
+
+.sponsors-admin__tier {
+  color: #666;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+}
+
+.sponsors-admin__form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.sponsors-admin__error {
+  color: #b00020;
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+}
+
+@media (max-width: 640px) {
+  .sponsors-admin__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .sponsors-admin__form {
+    max-width: 100%;
+  }
+
+  .sponsors-admin__row button,
+  .sponsors-admin__form button {
+    min-height: 44px;
+  }
+}

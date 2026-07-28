@@ -1,20 +1,39 @@
 .hero {
+  display: grid;
   position: relative;
-  height: 92vh;
-  min-height: 480px;
+}
+
+.hero__video-wrap {
+  grid-row: 1;
+  grid-column: 1;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #3a1a10;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero__pin {
+  grid-row: 1;
+  grid-column: 1;
+  align-self: start;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #3a1a10;
-}
-
-.hero__slide {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  padding-top: calc(var(--nav-height) + var(--top-banner-height));
 }
 
 .hero__tint {
@@ -49,63 +68,23 @@
 
 .hero__line--english {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.75rem);
+  font-size: clamp(2.4rem, 6.4vw, 4.4rem);
 }
 
 .hero__line--kannada {
   font-family: var(--font-kannada);
-  font-size: clamp(1.3rem, 3.5vw, 2.25rem);
+  font-size: clamp(2.08rem, 5.6vw, 3.6rem);
 }
 
 .hero__line--title {
-  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-size: clamp(3.6rem, 9.6vw, 6.4rem);
   font-weight: 700;
 }
 
-.hero__scroll-cue {
-  position: absolute;
-  left: 50%;
-  bottom: 28px;
-  z-index: 1;
-  width: 22px;
-  height: 34px;
-  border: 2px solid rgba(255, 248, 231, 0.8);
-  border-radius: 12px;
-  transform: translateX(-50%);
-}
-
-.hero__scroll-cue::before {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  width: 4px;
-  height: 8px;
-  border-radius: 2px;
-  background: rgba(255, 248, 231, 0.9);
-  transform: translateX(-50%);
-  animation: hero-scroll-cue 1.6s ease-in-out infinite;
-}
-
-@keyframes hero-scroll-cue {
-  0% {
-    opacity: 1;
-    top: 6px;
-  }
-  70% {
-    opacity: 0;
-    top: 16px;
-  }
-  100% {
-    opacity: 0;
-    top: 6px;
-  }
-}
-
 @media (max-width: 640px) {
-  .hero {
-    height: 88vh;
-    padding-top: calc(var(--nav-height) + var(--top-banner-height));
+  .hero__video-wrap {
+    aspect-ratio: unset;
+    height: 220vh;
   }
 
   .hero__text {
@@ -113,18 +92,14 @@
   }
 
   .hero__line--english {
-    font-size: clamp(1.05rem, 4.5vw, 1.5rem);
+    font-size: clamp(1.68rem, 7.2vw, 2.4rem);
   }
 
   .hero__line--kannada {
-    font-size: clamp(0.95rem, 4vw, 1.3rem);
+    font-size: clamp(1.52rem, 6.4vw, 2.08rem);
   }
 
   .hero__line--title {
-    font-size: clamp(1.6rem, 7vw, 2.25rem);
-  }
-
-  .hero__scroll-cue {
-    bottom: 18px;
+    font-size: clamp(2.56rem, 11.2vw, 3.6rem);
   }
 }

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import WaveDivider from './WaveDivider.jsx';
 import WaveDividerLayers from './WaveDividerLayers.jsx';
 import './SponsorshipSection.css';
 
@@ -32,9 +31,6 @@ function SponsorshipSection() {
             More Info
           </a>
         </motion.div>
-        <div className="sponsorship__wave-out">
-          <WaveDivider fill="var(--color-bg)" />
-        </div>
       </div>
     </section>
   );

@@ -4,14 +4,14 @@ import { MemoryRouter } from 'react-router-dom';
 import NavBar from './NavBar.jsx';
 
 describe('NavBar', () => {
-  it('renders the logo and all six section links', () => {
+  it('renders the logo and all seven section links', () => {
     render(
       <MemoryRouter>
         <NavBar />
       </MemoryRouter>
     );
     expect(screen.getByAltText('Mayura Kannada Sangha logo')).toBeInTheDocument();
-    ['Home', 'Events', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
+    ['Home', 'Events', 'Our Sponsors', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
       (label) => {
         expect(screen.getByText(label)).toBeInTheDocument();
       }
@@ -33,7 +33,7 @@ describe('NavBar', () => {
     expect(closeButton).toBeInTheDocument();
 
     const mobileMenu = within(closeButton.closest('.navbar__mobile-menu'));
-    ['Home', 'Events', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
+    ['Home', 'Events', 'Our Sponsors', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
       (label) => {
         expect(mobileMenu.getByText(label)).toBeInTheDocument();
       }

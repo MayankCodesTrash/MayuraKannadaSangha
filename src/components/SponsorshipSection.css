@@ -8,7 +8,7 @@
   position: relative;
   overflow: hidden;
   background: var(--color-orange);
-  padding: 100px 24px 130px;
+  padding: calc(var(--nav-height) + var(--top-banner-height) + 40px) 24px 80px;
 }
 
 .sponsorship__inner {
@@ -43,12 +43,4 @@
 
 .sponsorship__cta:hover {
   transform: translateY(-2px);
-}
-
-.sponsorship__wave-out {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
 }

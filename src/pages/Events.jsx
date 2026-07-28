@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
 import EventCard from '../components/EventCard.jsx';
-import SponsorshipSection from '../components/SponsorshipSection.jsx';
 import PastEventCard from '../components/PastEventCard.jsx';
 import { subscribeToEvents } from '../data/eventsRepo.js';
 import './Events.css';
@@ -35,8 +34,6 @@ function Events() {
           </div>
         </div>
       </section>
-
-      <SponsorshipSection />
 
       <section className="events-page__section">
         <div className="events-page__inner">

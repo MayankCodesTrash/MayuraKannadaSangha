@@ -4,6 +4,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import Home from './pages/Home.jsx';
 import Events from './pages/Events.jsx';
+import Sponsors from './pages/Sponsors.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Culture from './pages/Culture.jsx';
 import Team from './pages/Team.jsx';
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/sponsors" element={<Sponsors />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/culture" element={<Culture />} />
         <Route path="/team" element={<Team />} />

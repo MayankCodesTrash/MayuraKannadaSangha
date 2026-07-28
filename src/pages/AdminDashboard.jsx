@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../auth/AuthContext.jsx';
 import EventsAdminTab from '../components/admin/EventsAdminTab.jsx';
+import SponsorsAdminTab from '../components/admin/SponsorsAdminTab.jsx';
 import GalleryAdminTab from '../components/admin/GalleryAdminTab.jsx';
 import { seedLegacyData } from '../utils/seedLegacyData.js';
 import './AdminDashboard.css';
@@ -62,6 +63,17 @@ function AdminDashboard() {
         <button
           type="button"
           className={
+            tab === 'sponsors'
+              ? 'admin-dashboard__tab admin-dashboard__tab--active'
+              : 'admin-dashboard__tab'
+          }
+          onClick={() => setTab('sponsors')}
+        >
+          Sponsors
+        </button>
+        <button
+          type="button"
+          className={
             tab === 'gallery'
               ? 'admin-dashboard__tab admin-dashboard__tab--active'
               : 'admin-dashboard__tab'
@@ -72,7 +84,9 @@ function AdminDashboard() {
         </button>
       </nav>
 
-      {tab === 'events' ? <EventsAdminTab /> : <GalleryAdminTab />}
+      {tab === 'events' && <EventsAdminTab />}
+      {tab === 'sponsors' && <SponsorsAdminTab />}
+      {tab === 'gallery' && <GalleryAdminTab />}
     </div>
   );
 }

@@ -1,14 +1,8 @@
 .top-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 101;
-  min-height: var(--top-banner-height);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 16px;
+  padding: 12px 16px;
   background: var(--color-orange-dark);
   color: var(--color-text-light);
   text-align: center;
@@ -20,6 +14,7 @@
 
 @media (max-width: 640px) {
   .top-banner {
-    display: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
   }
 }
