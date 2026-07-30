@@ -33,7 +33,7 @@ function Team() {
           </p>
 
           <div className="team-page__grid">
-            {officeBearers.map(({ name, role, image }, index) => (
+            {officeBearers.map(({ name, role, image, description }, index) => (
               <motion.div
                 key={name}
                 className="team-page__card"
@@ -54,6 +54,7 @@ function Team() {
                 </div>
                 <h2 className="team-page__name">{name}</h2>
                 <p className="team-page__role">{role}</p>
+                <p className="team-page__description">{description}</p>
               </motion.div>
             ))}
           </div>

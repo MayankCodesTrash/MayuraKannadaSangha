@@ -9,6 +9,14 @@ import {
 } from '../../data/teamRepo.js';
 import TeamAdminTab from './TeamAdminTab.jsx';
 
+vi.mock('./ImageCropModal.jsx', () => ({
+  default: ({ onCropComplete }) => (
+    <button type="button" onClick={() => onCropComplete(new Blob(['x'], { type: 'image/jpeg' }))}>
+      Save Crop
+    </button>
+  ),
+}));
+
 vi.mock('../../data/teamRepo.js', () => ({
   subscribeToTeam: vi.fn(() => () => {}),
   createTeamMember: vi.fn(() => Promise.resolve('new-member-id')),
@@ -57,6 +65,10 @@ describe('TeamAdminTab', () => {
     const file = new File(['x'], 'photo.png', { type: 'image/png' });
     fireEvent.change(screen.getByLabelText('Photo'), { target: { files: [file] } });
 
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Save Crop' })).toBeInTheDocument());
+    fireEvent.click(screen.getByRole('button', { name: 'Save Crop' }));
+
+    await waitFor(() => expect(screen.queryByRole('button', { name: 'Save Crop' })).not.toBeInTheDocument());
     fireEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     await waitFor(() =>

@@ -9,6 +9,10 @@ class MockIntersectionObserver {
 
 globalThis.IntersectionObserver = MockIntersectionObserver;
 
+if (!globalThis.URL.createObjectURL) {
+  globalThis.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
+}
+
 vi.mock('firebase/app', () => ({
   initializeApp: vi.fn(() => ({})),
 }));

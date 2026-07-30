@@ -6,16 +6,26 @@ import {
   deleteTeamMember,
   uploadTeamPhoto,
 } from '../../data/teamRepo.js';
+import ImageCropModal from './ImageCropModal.jsx';
 import './TeamAdminTab.css';
 
 const ROLES = ['President', 'Secretary', 'Treasurer', 'Chairperson', 'Committee Member'];
 
-const EMPTY_FORM = { name: '', role: ROLES[0], image: '', storagePath: null };
+const EMPTY_FORM = { name: '', role: ROLES[0], image: '', storagePath: null, description: '' };
 
 function sortedByOrder(members) {
   return [...members].sort((a, b) => {
     const orderDiff = (a.order ?? 0) - (b.order ?? 0);
     return orderDiff !== 0 ? orderDiff : a.id.localeCompare(b.id);
+  });
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
   });
 }
 
@@ -25,6 +35,8 @@ function TeamAdminTab() {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
   const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState('');
+  const [cropSource, setCropSource] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -35,6 +47,7 @@ function TeamAdminTab() {
   function startAdd() {
     setForm(EMPTY_FORM);
     setPhotoFile(null);
+    setPhotoPreview('');
     setEditingId(null);
     setShowForm(true);
   }
@@ -45,8 +58,10 @@ function TeamAdminTab() {
       role: member.role ?? ROLES[0],
       image: member.image ?? '',
       storagePath: member.storagePath ?? null,
+      description: member.description ?? '',
     });
     setPhotoFile(null);
+    setPhotoPreview(member.image ?? '');
     setEditingId(member.id);
     setShowForm(true);
   }
@@ -58,6 +73,29 @@ function TeamAdminTab() {
 
   function updateField(field, value) {
     setForm((current) => ({ ...current, [field]: value }));
+  }
+
+  async function handlePhotoChange(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    const dataUrl = await readFileAsDataUrl(file);
+    setCropSource(dataUrl);
+  }
+
+  function editCurrentPhoto() {
+    if (photoPreview) setCropSource(photoPreview);
+  }
+
+  function handleCropCancel() {
+    setCropSource(null);
+  }
+
+  function handleCropComplete(blob) {
+    const file = new File([blob], 'team-photo.jpg', { type: blob.type || 'image/jpeg' });
+    setPhotoFile(file);
+    setPhotoPreview(URL.createObjectURL(blob));
+    setCropSource(null);
   }
 
   async function moveMember(member, direction) {
@@ -78,7 +116,7 @@ function TeamAdminTab() {
     setSaving(true);
     setError('');
     try {
-      const baseFields = { name: form.name, role: form.role };
+      const baseFields = { name: form.name, role: form.role, description: form.description };
 
       if (editingId) {
         let imageFields = { image: form.image, storagePath: form.storagePath };
@@ -171,13 +209,26 @@ function TeamAdminTab() {
             ))}
           </select>
 
-          <label htmlFor="team-photo">Photo</label>
-          <input
-            id="team-photo"
-            type="file"
-            accept="image/*"
-            onChange={(event) => setPhotoFile(event.target.files[0] ?? null)}
+          <label htmlFor="team-description">Blurb / Description</label>
+          <textarea
+            id="team-description"
+            rows={3}
+            placeholder="A short line about this person…"
+            value={form.description}
+            onChange={(event) => updateField('description', event.target.value)}
           />
+
+          <label htmlFor="team-photo">Photo</label>
+          <input id="team-photo" type="file" accept="image/*" onChange={handlePhotoChange} />
+
+          {photoPreview && (
+            <div className="team-admin__photo-preview">
+              <img src={photoPreview} alt="Selected preview" />
+              <button type="button" onClick={editCurrentPhoto}>
+                Edit Image
+              </button>
+            </div>
+          )}
 
           {error && <p className="team-admin__error">{error}</p>}
 
@@ -190,6 +241,14 @@ function TeamAdminTab() {
             </button>
           </div>
         </form>
+      )}
+
+      {cropSource && (
+        <ImageCropModal
+          imageSrc={cropSource}
+          onCancel={handleCropCancel}
+          onCropComplete={handleCropComplete}
+        />
       )}
     </div>
   );

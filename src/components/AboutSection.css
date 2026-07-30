@@ -4,9 +4,9 @@
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  gap: 16px;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 60px 24px;
 }
