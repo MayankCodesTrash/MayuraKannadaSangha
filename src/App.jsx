@@ -8,7 +8,6 @@ import Sponsors from './pages/Sponsors.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Culture from './pages/Culture.jsx';
 import Team from './pages/Team.jsx';
-import Contact from './pages/Contact.jsx';
 import AdminLogin from './pages/AdminLogin.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 
@@ -23,7 +22,6 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/culture" element={<Culture />} />
         <Route path="/team" element={<Team />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route
           path="/admin"

@@ -119,9 +119,10 @@
 
 .event-card__buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .event-card__cta {
@@ -199,7 +200,6 @@
   }
 
   .event-card__buttons {
-    flex-direction: row;
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 6px;

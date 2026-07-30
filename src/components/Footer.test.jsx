@@ -21,9 +21,9 @@ describe('Footer', () => {
     expect(container.querySelector('.wave-divider svg')).toBeInTheDocument();
   });
 
-  it('renders all six nav links', () => {
+  it('renders all five nav links', () => {
     renderFooter();
-    ['Home', 'Events', 'Our Sponsors', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
+    ['Home', 'Events', 'Gallery', 'Our Culture and Values', 'Team', 'Our Sponsors'].forEach(
       (label) => {
         expect(screen.getByRole('link', { name: label })).toBeInTheDocument();
       }

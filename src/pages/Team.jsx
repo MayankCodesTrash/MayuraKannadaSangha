@@ -1,17 +1,20 @@
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
-import { GavelIcon, QuillIcon, CoinIcon, ChairIcon } from '../components/icons/RoleIcons.jsx';
+import { subscribeToTeam } from '../data/teamRepo.js';
+import { DEFAULT_OFFICE_BEARERS } from '../data/officeBearers.js';
 import './Team.css';
 
-const OFFICE_BEARERS = [
-  { name: 'Arun Kumar', role: 'President', Icon: GavelIcon },
-  { name: 'Chandra Shekar', role: 'Secretary', Icon: QuillIcon },
-  { name: 'Yogeshwara Gonchigar', role: 'Treasurer', Icon: CoinIcon },
-  { name: 'Naveen Setty', role: 'Chairperson', Icon: ChairIcon },
-  { name: 'Raghunath Shammanna', role: 'Chairperson', Icon: ChairIcon },
-];
-
 function Team() {
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => subscribeToTeam(setMembers), []);
+
+  const officeBearers = useMemo(() => {
+    if (members.length === 0) return DEFAULT_OFFICE_BEARERS;
+    return [...members].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }, [members]);
+
   return (
     <Layout>
       <section className="team-page">
@@ -30,7 +33,7 @@ function Team() {
           </p>
 
           <div className="team-page__grid">
-            {OFFICE_BEARERS.map(({ name, role, Icon }, index) => (
+            {officeBearers.map(({ name, role, image }, index) => (
               <motion.div
                 key={name}
                 className="team-page__card"
@@ -39,8 +42,15 @@ function Team() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
               >
-                <div className="team-page__icon">
-                  <Icon />
+                <div className="team-page__photo">
+                  {image ? (
+                    <img src={image} alt={name} className="team-page__photo-img" />
+                  ) : (
+                    <div
+                      className="team-page__photo-placeholder"
+                      aria-label={`${name} photo placeholder`}
+                    />
+                  )}
                 </div>
                 <h2 className="team-page__name">{name}</h2>
                 <p className="team-page__role">{role}</p>

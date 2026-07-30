@@ -11,7 +11,7 @@ describe('NavBar', () => {
       </MemoryRouter>
     );
     expect(screen.getByAltText('Mayura Kannada Sangha logo')).toBeInTheDocument();
-    ['Home', 'Events', 'Our Sponsors', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
+    ['Home', 'Events', 'Gallery', 'Our Culture and Values', 'Team', 'Our Sponsors'].forEach(
       (label) => {
         expect(screen.getByText(label)).toBeInTheDocument();
       }
@@ -33,7 +33,7 @@ describe('NavBar', () => {
     expect(closeButton).toBeInTheDocument();
 
     const mobileMenu = within(closeButton.closest('.navbar__mobile-menu'));
-    ['Home', 'Events', 'Our Sponsors', 'Gallery', 'Our Culture and Values', 'Team', 'Contact'].forEach(
+    ['Home', 'Events', 'Gallery', 'Our Culture and Values', 'Team', 'Our Sponsors'].forEach(
       (label) => {
         expect(mobileMenu.getByText(label)).toBeInTheDocument();
       }

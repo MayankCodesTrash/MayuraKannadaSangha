@@ -1,8 +1,20 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AuthProvider } from '../auth/AuthContext.jsx';
+import { subscribeToTeam } from '../data/teamRepo.js';
 import Team from './Team.jsx';
+
+vi.mock('../data/teamRepo.js', () => ({
+  subscribeToTeam: vi.fn(() => () => {}),
+}));
+
+beforeEach(() => {
+  vi.mocked(subscribeToTeam).mockClear().mockImplementation((onChange) => {
+    onChange([]);
+    return () => {};
+  });
+});
 
 function renderTeam() {
   return render(

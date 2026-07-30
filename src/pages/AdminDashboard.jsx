@@ -3,6 +3,7 @@ import { useAuth } from '../auth/AuthContext.jsx';
 import EventsAdminTab from '../components/admin/EventsAdminTab.jsx';
 import SponsorsAdminTab from '../components/admin/SponsorsAdminTab.jsx';
 import GalleryAdminTab from '../components/admin/GalleryAdminTab.jsx';
+import TeamAdminTab from '../components/admin/TeamAdminTab.jsx';
 import { seedLegacyData } from '../utils/seedLegacyData.js';
 import './AdminDashboard.css';
 
@@ -23,8 +24,14 @@ function AdminDashboard() {
     setSeeding(true);
     setSeedMessage('');
     try {
-      await seedLegacyData();
-      setSeedMessage('Legacy data imported successfully.');
+      const { skipped } = await seedLegacyData();
+      if (skipped.length === 0) {
+        setSeedMessage('Legacy data imported successfully.');
+      } else if (skipped.length === 3) {
+        setSeedMessage('Nothing imported — events, gallery, and team already have data.');
+      } else {
+        setSeedMessage(`Imported what was missing. Skipped (already had data): ${skipped.join(', ')}.`);
+      }
     } catch {
       setSeedMessage('Import failed. Check the console for details.');
     } finally {
@@ -82,11 +89,23 @@ function AdminDashboard() {
         >
           Gallery
         </button>
+        <button
+          type="button"
+          className={
+            tab === 'team'
+              ? 'admin-dashboard__tab admin-dashboard__tab--active'
+              : 'admin-dashboard__tab'
+          }
+          onClick={() => setTab('team')}
+        >
+          Team
+        </button>
       </nav>
 
       {tab === 'events' && <EventsAdminTab />}
       {tab === 'sponsors' && <SponsorsAdminTab />}
       {tab === 'gallery' && <GalleryAdminTab />}
+      {tab === 'team' && <TeamAdminTab />}
     </div>
   );
 }

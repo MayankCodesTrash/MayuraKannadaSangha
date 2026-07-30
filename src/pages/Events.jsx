@@ -12,7 +12,12 @@ function Events() {
   useEffect(() => subscribeToEvents(setEvents), []);
 
   const upcomingEvents = events.filter((event) => event.status === 'upcoming');
-  const pastEvents = events.filter((event) => event.status === 'past');
+  const pastEvents = events
+    .filter((event) => event.status === 'past')
+    .sort(
+      (a, b) =>
+        new Date(`${b.month} ${b.day}, ${b.year}`) - new Date(`${a.month} ${a.day}, ${a.year}`)
+    );
 
   return (
     <Layout>

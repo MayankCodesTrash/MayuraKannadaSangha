@@ -38,16 +38,7 @@ describe('App routing', () => {
     expect(screen.getByRole('heading', { name: '2026 Office Bearers' })).toBeInTheDocument();
   });
 
-  it('renders the Contact page', () => {
-    render(
-      <MemoryRouter initialEntries={['/contact']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByRole('heading', { name: 'Get in Touch' })).toBeInTheDocument();
-  });
-
-  it('renders the Events page with upcoming and past sections', () => {
+  it('renders the Sponsors page with sponsorship info and gold/silver/bronze tiers', () => {
     render(
       <MemoryRouter initialEntries={['/events']}>
         <App />

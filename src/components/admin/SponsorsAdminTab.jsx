@@ -12,6 +12,14 @@ const TIERS = ['platinum', 'gold', 'silver', 'bronze'];
 
 const EMPTY_FORM = { name: '', tier: 'gold', image: '', storagePath: null };
 
+function sortedByTierAndOrder(sponsors) {
+  return [...sponsors].sort((a, b) => {
+    if (a.tier !== b.tier) return TIERS.indexOf(a.tier) - TIERS.indexOf(b.tier);
+    const orderDiff = (a.order ?? 0) - (b.order ?? 0);
+    return orderDiff !== 0 ? orderDiff : a.id.localeCompare(b.id);
+  });
+}
+
 function SponsorsAdminTab() {
   const [sponsors, setSponsors] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -22,6 +30,22 @@ function SponsorsAdminTab() {
   const [error, setError] = useState('');
 
   useEffect(() => subscribeToSponsors(setSponsors), []);
+
+  const orderedSponsors = sortedByTierAndOrder(sponsors);
+
+  async function moveSponsor(sponsor, direction) {
+    const tierSponsors = orderedSponsors.filter((s) => s.tier === sponsor.tier);
+    const index = tierSponsors.findIndex((s) => s.id === sponsor.id);
+    const swapIndex = index + direction;
+    if (swapIndex < 0 || swapIndex >= tierSponsors.length) return;
+    const neighbor = tierSponsors[swapIndex];
+    const sponsorOrder = sponsor.order ?? index;
+    const neighborOrder = neighbor.order ?? swapIndex;
+    await Promise.all([
+      updateSponsor(sponsor.id, { order: neighborOrder }),
+      updateSponsor(neighbor.id, { order: sponsorOrder }),
+    ]);
+  }
 
   function startAdd() {
     setForm(EMPTY_FORM);
@@ -65,17 +89,20 @@ function SponsorsAdminTab() {
         }
         await updateSponsor(editingId, { ...baseFields, ...imageFields });
       } else {
-        const newId = await createSponsor({ ...baseFields, image: '', storagePath: null });
+        let imageFields = { image: '', storagePath: null };
         if (photoFile) {
-          const imageFields = await uploadSponsorPhoto(photoFile);
-          await updateSponsor(newId, imageFields);
+          imageFields = await uploadSponsorPhoto(photoFile);
         }
+        const tierSponsors = sponsors.filter((s) => s.tier === form.tier);
+        const nextOrder = tierSponsors.reduce((max, s) => Math.max(max, s.order ?? 0), -1) + 1;
+        await createSponsor({ ...baseFields, order: nextOrder, ...imageFields });
       }
 
       setShowForm(false);
       setEditingId(null);
     } catch (err) {
-      setError(err.message);
+      console.error('Failed to save sponsor:', err);
+      setError(err instanceof Error ? err.message : String(err));
     } finally {
       setSaving(false);
     }
@@ -93,11 +120,27 @@ function SponsorsAdminTab() {
       </button>
 
       <ul className="sponsors-admin__list">
-        {sponsors.map((sponsor) => (
+        {orderedSponsors.map((sponsor) => (
           <li key={sponsor.id} className="sponsors-admin__row">
             {sponsor.image && <img className="sponsors-admin__thumb" src={sponsor.image} alt="" />}
             <span className="sponsors-admin__name">{sponsor.name}</span>
             <span className="sponsors-admin__tier">{sponsor.tier}</span>
+            <div className="sponsors-admin__reorder">
+              <button
+                type="button"
+                aria-label={`Move ${sponsor.name} up`}
+                onClick={() => moveSponsor(sponsor, -1)}
+              >
+                ↑
+              </button>
+              <button
+                type="button"
+                aria-label={`Move ${sponsor.name} down`}
+                onClick={() => moveSponsor(sponsor, 1)}
+              >
+                ↓
+              </button>
+            </div>
             <button type="button" onClick={() => startEdit(sponsor)}>
               Edit
             </button>

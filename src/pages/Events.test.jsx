@@ -64,6 +64,45 @@ describe('Events page', () => {
     expect(screen.getByText('August 23, 2025')).toBeInTheDocument();
   });
 
+  it('sorts past events from newest to oldest', () => {
+    vi.mocked(onSnapshot).mockImplementation((ref, callback) => {
+      callback(
+        snapshotFrom([
+          {
+            id: 'evt-old',
+            title: 'Dasara Mahotsava 2024',
+            day: '28',
+            month: 'September',
+            year: '2024',
+            time: '',
+            location: 'Franklin Junior High',
+            image: 'https://example.com/dasara-2024.jpg',
+            status: 'past',
+            buttons: [],
+          },
+          {
+            id: 'evt-new',
+            title: 'Dasara Mahotsava 2025',
+            day: '27',
+            month: 'September',
+            year: '2025',
+            time: '',
+            location: 'Franklin Junior High',
+            image: 'https://example.com/dasara-2025.jpg',
+            status: 'past',
+            buttons: [],
+          },
+        ])
+      );
+      return () => {};
+    });
+
+    renderEvents();
+
+    const headings = screen.getAllByRole('heading', { level: 3 }).map((h) => h.textContent);
+    expect(headings).toEqual(['Dasara Mahotsava 2025', 'Dasara Mahotsava 2024']);
+  });
+
   it('renders empty sections gracefully when there are no events yet', () => {
     vi.mocked(onSnapshot).mockImplementation((ref, callback) => {
       callback(snapshotFrom([]));
