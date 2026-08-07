@@ -2,8 +2,7 @@ import { motion } from 'framer-motion';
 import WaveDividerLayers from './WaveDividerLayers.jsx';
 import './SponsorshipSection.css';
 
-const SPONSORSHIP_PDF_URL =
-  'https://storage.googleapis.com/production-websitebuilder-v1-0-7/287/1991287/3q88gokE/b749f84296c4495688265864b222c5dc?fileName=043D207E-9024-4FE5-941E-36BE22A10E8C.pdf';
+const SPONSORSHIP_PDF_URL = '/MKS%20Dasara%202026%20Sponsorship_0727_v1.0.pdf';
 
 function SponsorshipSection() {
   return (
@@ -19,7 +18,7 @@ function SponsorshipSection() {
         >
           <h2 className="sponsorship__title">Sponsorship Opportunities</h2>
           <p className="sponsorship__text">
-            Click the &quot;More Info&quot; button to learn more about the 2025 Dasara
+            Click the &quot;More Info&quot; button to learn more about the 2026 Dasara
             sponsorship opportunities.
           </p>
           <a

@@ -124,3 +124,43 @@
     flex: 1 1 220px;
   }
 }
+
+@media (max-width: 640px) {
+  .team-page__grid {
+    gap: 14px;
+  }
+
+  .team-page__card {
+    flex: 1 1 130px;
+    min-width: 130px;
+    padding: 6px 6px 12px;
+    border-radius: 16px;
+  }
+
+  .team-page__photo {
+    margin: 0 0 10px;
+    border-radius: 10px;
+  }
+
+  .team-page__name {
+    font-size: 0.95rem;
+    margin: 0 0 2px;
+  }
+
+  .team-page__role {
+    font-size: 0.75rem;
+  }
+
+  .team-page__description {
+    font-size: 0.8rem;
+    line-height: 1.35;
+    margin: 8px 0 0;
+    min-height: 0;
+  }
+
+  .team-page__name,
+  .team-page__role,
+  .team-page__description {
+    padding: 0 4px;
+  }
+}

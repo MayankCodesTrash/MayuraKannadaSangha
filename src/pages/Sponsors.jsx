@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
 import SponsorshipSection from '../components/SponsorshipSection.jsx';
-import ContributionSection from '../components/ContributionSection.jsx';
 import { subscribeToSponsors } from '../data/sponsorsRepo.js';
 import { subscribeToSettings } from '../data/settingsRepo.js';
 import './Sponsors.css';
@@ -129,7 +128,6 @@ function Sponsors() {
           </div>
         </section>
       )}
-      <ContributionSection />
     </Layout>
   );
 }
