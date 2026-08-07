@@ -58,6 +58,8 @@ function Team() {
               </motion.div>
             ))}
           </div>
+
+          <div className="team-page__placeholder">We extend our heartfelt gratitude to all our past team and board members for their dedicated service and invaluable contributions to our community.</div>
         </div>
       </section>
     </Layout>

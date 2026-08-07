@@ -7,6 +7,7 @@ import {
   deleteSponsor,
   uploadSponsorPhoto,
 } from '../../data/sponsorsRepo.js';
+import { subscribeToSettings, updateSettings } from '../../data/settingsRepo.js';
 import SponsorsAdminTab from './SponsorsAdminTab.jsx';
 
 vi.mock('../../data/sponsorsRepo.js', () => ({
@@ -17,6 +18,14 @@ vi.mock('../../data/sponsorsRepo.js', () => ({
   uploadSponsorPhoto: vi.fn(() =>
     Promise.resolve({ image: 'https://example.com/logo.jpg', storagePath: 'sponsors/logo.jpg' })
   ),
+}));
+
+vi.mock('../../data/settingsRepo.js', () => ({
+  subscribeToSettings: vi.fn((onChange) => {
+    onChange({ sponsorsSectionVisible: true });
+    return () => {};
+  }),
+  updateSettings: vi.fn(() => Promise.resolve()),
 }));
 
 const SAMPLE_SPONSOR = {
@@ -46,6 +55,13 @@ beforeEach(() => {
   vi.mocked(updateSponsor).mockClear().mockResolvedValue();
   vi.mocked(deleteSponsor).mockClear().mockResolvedValue();
   vi.mocked(uploadSponsorPhoto).mockClear();
+  vi.mocked(subscribeToSettings)
+    .mockClear()
+    .mockImplementation((onChange) => {
+      onChange({ sponsorsSectionVisible: true });
+      return () => {};
+    });
+  vi.mocked(updateSettings).mockClear().mockResolvedValue();
   window.confirm = vi.fn(() => true);
 });
 
@@ -93,6 +109,20 @@ describe('SponsorsAdminTab', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Delete' }));
 
     await waitFor(() => expect(deleteSponsor).toHaveBeenCalledWith('sponsor-1'));
+  });
+
+  it('toggles the sponsors section visibility setting', async () => {
+    render(<SponsorsAdminTab />);
+    const checkbox = screen.getByRole('checkbox', {
+      name: 'Show "Our Sponsors" section on the Sponsors page',
+    });
+    expect(checkbox).toBeChecked();
+
+    fireEvent.click(checkbox);
+
+    await waitFor(() =>
+      expect(updateSettings).toHaveBeenCalledWith({ sponsorsSectionVisible: false })
+    );
   });
 
   it('swaps order when moving a sponsor down within its tier', async () => {

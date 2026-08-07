@@ -11,12 +11,13 @@
   --font-body: 'Lora', 'Georgia', serif;
   --font-kannada: 'Noto Sans Kannada', sans-serif;
   --nav-height: 80px;
-  --top-banner-height: 0px;
+  --top-banner-height: 44px;
 }
 
 @media (max-width: 640px) {
   :root {
     --nav-height: calc(100vw / 6);
+    --top-banner-height: 34px;
   }
 }
 

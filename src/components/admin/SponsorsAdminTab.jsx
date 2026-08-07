@@ -6,6 +6,7 @@ import {
   deleteSponsor,
   uploadSponsorPhoto,
 } from '../../data/sponsorsRepo.js';
+import { subscribeToSettings, updateSettings } from '../../data/settingsRepo.js';
 import './SponsorsAdminTab.css';
 
 const TIERS = ['platinum', 'gold', 'silver', 'bronze'];
@@ -28,8 +29,17 @@ function SponsorsAdminTab() {
   const [photoFile, setPhotoFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [sponsorsSectionVisible, setSponsorsSectionVisible] = useState(true);
 
   useEffect(() => subscribeToSponsors(setSponsors), []);
+  useEffect(
+    () => subscribeToSettings((settings) => setSponsorsSectionVisible(settings.sponsorsSectionVisible)),
+    []
+  );
+
+  async function toggleSponsorsSectionVisible() {
+    await updateSettings({ sponsorsSectionVisible: !sponsorsSectionVisible });
+  }
 
   const orderedSponsors = sortedByTierAndOrder(sponsors);
 
@@ -115,6 +125,15 @@ function SponsorsAdminTab() {
 
   return (
     <div className="sponsors-admin">
+      <label className="sponsors-admin__visibility-toggle">
+        <input
+          type="checkbox"
+          checked={sponsorsSectionVisible}
+          onChange={toggleSponsorsSectionVisible}
+        />
+        Show &quot;Our Sponsors&quot; section on the Sponsors page
+      </label>
+
       <button type="button" className="sponsors-admin__add" onClick={startAdd}>
         Add Sponsor
       </button>

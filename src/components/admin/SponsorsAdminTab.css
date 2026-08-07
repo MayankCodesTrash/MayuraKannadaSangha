@@ -2,6 +2,19 @@
   font-family: system-ui, sans-serif;
 }
 
+.sponsors-admin__visibility-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.sponsors-admin__visibility-toggle input {
+  width: 18px;
+  height: 18px;
+}
+
 .sponsors-admin__form {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout.jsx';
 import SponsorshipSection from '../components/SponsorshipSection.jsx';
+import ContributionSection from '../components/ContributionSection.jsx';
 import { subscribeToSponsors } from '../data/sponsorsRepo.js';
+import { subscribeToSettings } from '../data/settingsRepo.js';
 import './Sponsors.css';
 
 const SLOTS = 3;
@@ -81,8 +83,13 @@ function SponsorTier({ tier, sponsors }) {
 
 function Sponsors() {
   const [sponsors, setSponsors] = useState([]);
+  const [sponsorsSectionVisible, setSponsorsSectionVisible] = useState(true);
 
   useEffect(() => subscribeToSponsors(setSponsors), []);
+  useEffect(
+    () => subscribeToSettings((settings) => setSponsorsSectionVisible(settings.sponsorsSectionVisible)),
+    []
+  );
 
   const sortedSponsors = useMemo(() => {
     return [...sponsors].sort((a, b) => {
@@ -94,32 +101,35 @@ function Sponsors() {
   return (
     <Layout>
       <SponsorshipSection />
-      <section className="sponsors-tiers">
-        <div className="sponsors-tiers__inner">
-          <motion.h2
-            className="sponsors-tiers__heading"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.6 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-          >
-            Our Sponsors
-          </motion.h2>
+      {sponsorsSectionVisible && (
+        <section className="sponsors-tiers">
+          <div className="sponsors-tiers__inner">
+            <motion.h2
+              className="sponsors-tiers__heading"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            >
+              Our Sponsors
+            </motion.h2>
 
-          {TIERS.map((tier) => {
-            const tierSponsors = sortedSponsors.filter((sponsor) =>
-              sponsor.tier === tier.id
-            );
-            return (
-              <SponsorTier
-                key={tier.id}
-                tier={tier}
-                sponsors={tierSponsors}
-              />
-            );
-          })}
-        </div>
-      </section>
+            {TIERS.map((tier) => {
+              const tierSponsors = sortedSponsors.filter((sponsor) =>
+                sponsor.tier === tier.id
+              );
+              return (
+                <SponsorTier
+                  key={tier.id}
+                  tier={tier}
+                  sponsors={tierSponsors}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
+      <ContributionSection />
     </Layout>
   );
 }
